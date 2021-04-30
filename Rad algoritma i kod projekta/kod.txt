@@ -1,0 +1,98 @@
+_____________________________________________________
+/////////////////////////////////////////////////////
+///KOD NIJE NAPISAN NI U JEDNOM SPECEFICNOM JEZIKU///
+/////////////////////////////////////////////////////
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+///////////////////////////// PRAVAC
+
+pravac = [ [20, 20, 40, 0, 0, 0, 0, 0, 40, ......],
+		   [60, 60, 70, 0, 0, 0, 0, 0, 20, ......],
+		   [50, 40, 40, 0, 0, 0, 0, 0, 30, ......] ]        // svaki niz u nizu pravac predstavlja drugi muzicki pravac
+															// gde mu je index u nizu ujedno i id pravca, a svaki element
+															// niza u nizu pravac predstavlja pocetni prioritet za taj
+															// muzicki pravac
+
+Tehnika.OdaberiPravac(int pravacId) // posto je projekat bio previse komplikovan u proslom terminu, bros tehnika sada
+									// ima vrednost 1 kada se napravi i menja se na 3 posle odabira tehnike (i van toge se ne menja)
+									// (pre je bila ideja da se povecava i smanjuje po uspehu korisnika da zavrsi vezbe)
+	this.PromeniPravac(pravacId)
+	raspored.brTehnika = 3
+
+
+Tehnika.PromeniPravac(int pravacId)
+	int i = 0
+	foreach pravac p in this.podtehnike
+		this.podtehnike[i].prioritet = pravac[pravacId][i] + (100-pravac[pravacId][i])*(this.podtehnike[i].prioritet / 100)
+		i += 1
+
+///////////////////////////// TON
+
+ton = [ [70, 20, 30, 40, 0, 0, 50, 20, 90, ......],
+		[60, 40, 20, 0, 10, 0, 90, 50, 90, ......],
+		[75, 50, 30, 0, 0, 60, 50, 30, 50, ......], .... ]  // svaki niz u nizu ton predstavlja drugi muzicki ton
+															// gde mu je index u nizu ujedno i id tona, a svaki element
+															// niza u nizu ton predstavlja pocetni prioritet za taj
+															// muzicki ton
+															// (osnovne tehnike se ne nalaze u nizu)
+
+Tehnika.OdaberiTon(int tonId) // odlucio sam da zamenim funkciju OdaberiTon funkcijom Promeniton
+	//int i = 0
+	//foreach ton p in this.podtehnike
+		//this.podtehnike[i].prioritet = ton[tonId][i]
+		//i += 1
+	this.PromeniTon(tonId)
+
+
+Tehnika.PromeniTon(int tonId)
+	int i = 0
+	foreach ton p in this.podtehnike
+		this.podtehnike[i].prioritet = ton[tonId][i] + (100-ton[tonId][i])*(this.podtehnike[i].prioritet / 100)
+		i += 1
+
+
+///////////////////////////// RASPORED
+
+Raspored raspored // ima vrednost : brTehnika = 2 ; zadatak = ["Vezbaj menjanja akorda Bm-F-C-G (svaki sa svakim) 30min", "Vezbaj pravljenje akorda F5 30min"] ]
+
+tehnike[0].podtehnike = [   ["pravljenje akorda A", 50.0, 100], // podtehnike vise nisu odvojen entitet od vezbi
+							["pravljenje akorda D", 50.0, 100], // umesto da cuva "naziv", sada svaka podtehnika predstavlja zadatak
+							["menjanje akorda A-D", 100.0, 50],  // (pre je podtehnika imala naziv, savladanost, i morala je dinamicki
+							["pravljenje akorda Am",100.0, 0.0, 0],  //       da kreira zadatke, dok su sada podtehnike podeljene u zadatke)
+							["menjanje akorda A-Am i D-Am", 50.0, 0], .... ]
+
+getVreme(double savladanost)// ova funkcija nije pojednostavljena. uvek sam planirao da ce ovako raditi
+	if savladanost <= 25.0	// (osim da bira random vreme (sto je lose), ne vidim drugo resenje koje nije previse komplikovano)
+		return "30min"
+	else if savladanost <= 50.0
+		return "1h"
+	else 
+		return "2h"
+
+Raspored.Osvezi()
+	zadatak = new String[brTehnika]
+	
+	iterator = 0
+	foreach tehnika in getTehnike(brTehnika)// getPrioritet vraca niz prvih |brTehnika| tehnika sa najvisim prioritetom
+		Podtehnika pod = tehnika.getZadatak()// prolazi kroz listu tehniku dok ne nadje onu kojoj |savladanost| nije 100 i vraca je
+		zadatak[iterator] = "Vezbaj " + pod.zadatak + " " + getVreme(pod.savladanost)
+		iterator += 1
+
+
+///////////////////////////// VEZBANJE
+
+Raspored raspored // ima vrednost : brTehnika = 2 ; zadatak = ["Vezbaj menjanja akorda Bm-F-C-G (svaki sa svakim) 30min", "Vezbaj pravljenje akorda F5 30min"] ]
+
+tehnike[0].podtehnike = [   ["pravljenje akorda A", 50.0, 100], // podtehnike vise nisu odvojen entitet od vezbi
+							["pravljenje akorda D", 50.0, 100], // umesto da cuva "naziv", sada svaka podtehnika predstavlja zadatak
+							["menjanje akorda A-D", 100.0, 50],  // (pre je podtehnika imala naziv, savladanost, i morala je dinamicki
+							["pravljenje akorda Am",100.0, 0.0, 0],  //       da kreira zadatke, dok su sada podtehnike podeljene u zadatke)
+							["menjanje akorda A-Am i D-Am", 50.0, 0], .... ]
+
+//[Posto program nije u stanju da zna sta je korisnik radio, on ce da ga pita]
+
+
+
+
+
+
