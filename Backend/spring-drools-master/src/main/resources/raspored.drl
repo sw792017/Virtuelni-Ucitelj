@@ -1,0 +1,8 @@
+
+dialect  "mvel"
+
+rule "raspored"
+    when
+    then
+end
+

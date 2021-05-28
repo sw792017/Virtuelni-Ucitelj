@@ -1,0 +1,202 @@
+package KieRule
+import com.javatechie.spring.drools.api.Core;
+import com.javatechie.spring.drools.api.Tehnika;
+import com.javatechie.spring.drools.api.PodTehnika;
+import com.javatechie.spring.drools.api.Raspored;
+import com.javatechie.spring.drools.api.Lista;
+
+dialect  "mvel"
+
+rule "NovuTehniku"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 25)
+        $min: Integer()
+    then
+        if($min>=20){
+            if($t.getPrioritet() != 100){
+                $t.setPrioritet($t.getPrioritet() + 2);
+            }
+            $podtehnika.setSavadao($podtehnika.getSavadao() + $podtehnika.getKorak());
+            if($podtehnika.getSavadao() > 100){
+                $podtehnika.setSavadao(100);
+            }
+        }
+        if($min>=5 && $min<20){
+            if($t.getPrioritet() != 100){
+                $t.setPrioritet($t.getPrioritet() + 1);
+            }
+            $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/2));
+            if($podtehnika.getSavadao() > 100){
+                $podtehnika.setSavadao(100);
+            }
+        }
+        if($min<5){
+            if($t.getPrioritet() > 10){
+                $t.setPrioritet($t.getPrioritet() - 1);
+            }
+        }
+end
+
+rule "PoznatuTehniku"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 50, getProcenat() > 25)
+        $min: Integer()
+    then
+        if($min>=50){
+            if($t.getPrioritet() != 100){
+                $t.setPrioritet($t.getPrioritet() + 2);
+            }
+            $podtehnika.setSavadao($podtehnika.getSavadao() + $podtehnika.getKorak());
+            if($podtehnika.getSavadao() > 100){
+                $podtehnika.setSavadao(100);
+            }
+        }
+        if($min>=15 && $min<50){
+            if($t.getPrioritet() != 100){
+                $t.setPrioritet($t.getPrioritet() + 1);
+            }
+            $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/2));
+            if($podtehnika.getSavadao() > 100){
+                $podtehnika.setSavadao(100);
+            }
+        }
+        if($min<15){
+            if($t.getPrioritet() > 10){
+                $t.setPrioritet($t.getPrioritet() - 1);
+            }
+        }
+end
+
+rule "RazradjenuTehniku"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() > 50)
+        $min: Integer()
+    then
+        if($min>=100){
+            if($t.getPrioritet() != 100){
+                $t.setPrioritet($t.getPrioritet() + 2);
+            }
+            $podtehnika.setSavadao($podtehnika.getSavadao() + $podtehnika.getKorak());
+            if($podtehnika.getSavadao() > 100){
+                $podtehnika.setSavadao(100);
+            }
+        }
+        if($min>=30 && $min<100){
+            if($t.getPrioritet() != 100){
+                $t.setPrioritet($t.getPrioritet() + 1);
+            }
+            $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/2));
+            if($podtehnika.getSavadao() > 100){
+                $podtehnika.setSavadao(100);
+            }
+        }
+        if($min>30){
+            if($t.getPrioritet() > 10){
+                $t.setPrioritet($t.getPrioritet() - 1);
+            }
+        }
+end
+
+rule "Prskocio"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet)
+        $min: Integer($min==0)
+    then
+        if($prioritet != 0){
+            $t.setPrioritet($t.getPrioritet() - 5);
+            if($prioritet < 0){
+                $t.setPrioritet(0);
+            }
+        }
+end
+
+
+
+
+///////////////////////////////////////////////////////////////////////  pravac.drl
+
+
+
+
+rule "Pravac"
+    when
+        $core: Core($tehnike: tehnike)
+        $pravac: String()//$pravac == "Bas")// e.g.
+        $pravci: Lista($tags : elementi contains $pravac)
+    then
+        $core.setPravac($pravac);
+end
+
+
+
+///////////////////////////////////////////////////////////////////////  zvuk.drl
+
+
+
+rule "Zvuk"// da li treba da promeni br zadataka ovde?
+    when
+        $core: Core($tehnike: tehnike)
+        $zvuk: String()//$zvuk == "Rock")// e.g.
+        $zvukoci: Lista($tags : elementi contains $zvuk)
+    then
+        $core.setZvuk($zvuk);
+end
+
+
+
+///////////////////////////////////////////////////////////////////////  raspored.drl
+
+
+
+rule "RasporedZa3Tehnike"
+    when
+        $core: Core()// sta ako nema 3 slobodne tehnike
+        $raspored: Raspored($brTehnika: brTehnika == 3)
+    then
+        $min = "";
+        if ($core.getSavladanost(0) <= 25.0){
+    		$min = "30min";
+    	}
+    	if ($core.getSavladanost(0) <= 50.0 && $core.getSavladanost(0) > 25){
+    		$min = "1h";
+    	}
+    	if ($core.getSavladanost(0) > 50.0){
+    		$min = "2h";
+        }
+
+        $raspored.addZadatak(0, "Vezbaj " + $core.getZadatak(0) + " " + $min);
+
+        if ($core.getSavladanost(1) <= 25.0){
+            $min = "30min";
+        }
+        if ($core.getSavladanost(1) <= 50.0 && $core.getSavladanost(1) > 25){
+            $min = "1h";
+        }
+        if ($core.getSavladanost(1) > 50.0){
+            $min = "2h";
+        }
+
+        $raspored.addZadatak(1, "Vezbaj " + $core.getZadatak(1) + " " + $min);
+
+/*
+        if ($core.getSavladanost(2) <= 25.0)// (osim da bira random vreme (sto je lose), ne vidim drugo resenje koje nije previse komplikovano)
+            $raspored.addZadatak(2,"Vezbaj " + $core.getZadatak(0) + " " + "30min");
+        if ($core.getSavladanost(2) <= 50.0 && $core.getSavladanost(2) > 25)
+            $raspored.addZadatak(2,"Vezbaj " + $core.getZadatak(0) + " " + "1h");
+        if ($core.getSavladanost(2) >= 50.0)
+            $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(0) + " " + "2h");
+*/
+
+        if ($core.getSavladanost(2) <= 25.0){
+    		$min = "30min";
+    	}
+    	if ($core.getSavladanost(2) <= 50.0 && $core.getSavladanost(2) > 25){
+    		$min = "1h";
+    	}
+    	if ($core.getSavladanost(2) >= 50.0){
+    		$min = "2h";
+    	}
+
+        $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(2) + " " + $min);
+
+end

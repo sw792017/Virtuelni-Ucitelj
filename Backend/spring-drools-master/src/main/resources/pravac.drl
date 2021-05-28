@@ -1,0 +1,32 @@
+package KieRule
+import com.javatechie.spring.drools.api.Tehnika;
+import com.javatechie.spring.drools.api.PodTehnika;
+import com.javatechie.spring.drools.api.Raspored;
+
+
+
+//declare any global variables here
+
+
+
+
+rule "Rock" 
+	//salience ()
+    when
+        $t: Tehnika($naziv: naziv, $podtehnike: podtehnike)
+        $p: pravac
+        Number($value: intValue >= 4) from accumulate(
+        	Simptom($t:this, this memberOf $simptomi) from $zalbe,
+        	count($t)
+        )
+        not (
+        	Bolest(naziv == "Sinusna infekcija") from $b and 
+            not Dijagnoza($d: datum, $d.isAfter(LocalDate.now().minusDays(60)), bolest.getNaziv() == "Prehlada" ||  bolest.getNaziv() == "Groznica") from $karton            	
+        )
+    then
+    	System.out.println("Bolest: " + $naziv);
+    	System.out.println("Broj simptoma: " + $value + "/" + $simptomi.size());
+    	modify($p) { setTrenutnaBolest($b) }
+end
+
+

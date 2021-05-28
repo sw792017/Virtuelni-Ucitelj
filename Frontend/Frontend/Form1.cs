@@ -37,6 +37,7 @@ namespace Frontend
             nedelja.BackColor = Color.FromArgb(234, 234, 246);
 
             dodajVezbu.BackColor = Color.FromArgb(100, 100, 164);
+            button1.BackColor = Color.FromArgb(100, 100, 164);
             meni.BackColor = Color.FromArgb(100, 100, 164);
 
 
@@ -80,7 +81,7 @@ namespace Frontend
         private void Nacrtaj(object sender, PaintEventArgs e)
         {
             int sada = DateTime.Now.Hour * 60 + DateTime.Now.Minute - 360;//dan pocinje od 6 AM (ne racunam vreme za spavanje)
-            if (sada > 1320 || sada < 360)
+            if (sada > 1320)
                 return;
 
             base.OnPaint(e);
