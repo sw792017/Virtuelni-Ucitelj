@@ -7,6 +7,133 @@ import com.javatechie.spring.drools.api.Lista;
 
 dialect  "mvel"
 
+
+rule "Preko100"
+    when
+        $t: Tehnika($t.getPrioritet() > 100)
+    then
+        $t.setPrioritet(100);
+end
+
+rule "Ispod0"
+    when
+        $t: Tehnika($t.getPrioritet() < 0)
+    then
+        $t.setPrioritet(0);
+end
+
+rule "SavladaoViseOd100"
+    when
+        $pt: PodTehnika($pt.getSavadao() > 100)
+    then
+        $pt.setSavadao(100);
+    end
+
+
+////////////////////////////////////////////
+
+rule "NovuTehnikuSve"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 25)
+        $min: Integer($min>=20)
+    then
+        $t.setPrioritet($t.getPrioritet() + 2);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + $podtehnika.getKorak());
+end
+
+
+rule "NovuTehnikuPola"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 25)
+        $min: Integer($min>=5 && $min<20)
+    then
+        $t.setPrioritet($t.getPrioritet() + 1);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/2));
+end
+
+
+rule "NovuTehnikuSlabo"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 25)
+        $min: Integer($min<5)
+    then
+        $t.setPrioritet($t.getPrioritet() - 1);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/4));
+end
+
+
+rule "PoznatuTehnikuSve"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 50, getProcenat() > 25)
+        $min: Integer($min>=50)
+    then
+        $t.setPrioritet($t.getPrioritet() + 2);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + $podtehnika.getKorak());
+end
+
+
+rule "PoznatuTehnikuPola"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 50, getProcenat() > 25)
+        $min: Integer($min>=15 && $min<50)
+    then
+        $t.setPrioritet($t.getPrioritet() + 1);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/2));
+end
+
+
+rule "PoznatuTehnikuSlabo"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 50, getProcenat() > 25)
+        $min: Integer($min<15)
+    then
+        $t.setPrioritet($t.getPrioritet() - 1);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/4));
+end
+
+
+rule "RazradjenuTehnikuSve"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() > 50)
+        $min: Integer($min>=100)
+    then
+        $t.setPrioritet($t.getPrioritet() + 2);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + $podtehnika.getKorak());
+end
+
+
+rule "RazradjenuTehnikuPola"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() > 50)
+        $min: Integer($min>=30 && $min<100)
+    then
+        $t.setPrioritet($t.getPrioritet() + 1);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/2));
+end
+
+
+rule "RazradjenuTehnikuSlabo"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() > 50)
+        $min: Integer($min>30)
+    then
+        $t.setPrioritet($t.getPrioritet() - 1);
+        $podtehnika.setSavadao($podtehnika.getSavadao() + ($podtehnika.getKorak()/4));
+end
+
+
+rule "Prskocio"
+    when
+        $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet)
+        $min: Integer($min==0)
+    then
+        $t.setPrioritet($t.getPrioritet() - 5);
+end
+
+
+/////////////////////////////////////////
+
+/*
 rule "NovuTehniku"
     when
         $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 25)
@@ -36,7 +163,8 @@ rule "NovuTehniku"
             }
         }
 end
-
+*/
+/*
 rule "PoznatuTehniku"
     when
         $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() <= 50, getProcenat() > 25)
@@ -66,7 +194,8 @@ rule "PoznatuTehniku"
             }
         }
 end
-
+*/
+/*
 rule "RazradjenuTehniku"
     when
         $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet, $podtehnika: getPodtehnika(), $procenat:getProcenat() > 50)
@@ -96,7 +225,8 @@ rule "RazradjenuTehniku"
             }
         }
 end
-
+*/
+/*
 rule "Prskocio"
     when
         $t: Tehnika($pt:podtehnike, $presao: presao, $prioritet: prioritet)
@@ -109,7 +239,7 @@ rule "Prskocio"
             }
         }
 end
-
+*/
 
 
 
@@ -146,8 +276,81 @@ end
 
 ///////////////////////////////////////////////////////////////////////  raspored.drl
 
+rule "Raspored1Poc"
+    when
+        $core: Core($core.getSavladanost(0) <= 25.0)// sta ako nema 3 slobodne tehnike
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak1")
+    then
+        $raspored.addZadatak(0, "Vezbaj " + $core.getZadatak(0) + " 30min");
+end
+
+rule "Raspored1Sred"
+    when
+        $core: Core($core.getSavladanost(0) <= 50.0 && $core.getSavladanost(0) > 25)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak1")
+    then
+        $raspored.addZadatak(0, "Vezbaj " + $core.getZadatak(0) + " 1h");
+end
+
+rule "Raspored1Kraj"
+    when
+        $core: Core($core.getSavladanost(0) > 50.0)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak1")
+    then
+        $raspored.addZadatak(0, "Vezbaj " + $core.getZadatak(0) + " 2h");
+end
 
 
+rule "Raspored2Poc"
+    when
+        $core: Core($core.getSavladanost(1) <= 25.0)// sta ako nema 3 slobodne tehnike
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak2")
+    then
+        $raspored.addZadatak(1, "Vezbaj " + $core.getZadatak(1) + " 30min");
+end
+
+rule "Raspored2Sred"
+    when
+        $core: Core($core.getSavladanost(1) <= 50.0 && $core.getSavladanost(1) > 25)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak2")
+    then
+        $raspored.addZadatak(1, "Vezbaj " + $core.getZadatak(1) + " 1h");
+end
+
+rule "Raspored2Kraj"
+    when
+        $core: Core($core.getSavladanost(1) > 50.0)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak2")
+    then
+        $raspored.addZadatak(1, "Vezbaj " + $core.getZadatak(1) + " 2h");
+end
+
+
+rule "Raspored3Poc"
+    when
+        $core: Core($core.getSavladanost(2) <= 25.0)// sta ako nema 3 slobodne tehnike
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak3")
+    then
+        $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(2) + " 30min");
+end
+
+rule "Raspored3Sred"
+    when
+        $core: Core($core.getSavladanost(2) <= 50.0 && $core.getSavladanost(2) > 25)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak3")
+    then
+        $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(2) + " 1h");
+end
+
+rule "Raspored3Kraj"
+    when
+        $core: Core($core.getSavladanost(2) > 50.0)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak3")
+    then
+        $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(2) + " 2h");
+end
+
+/*
 rule "RasporedZa3Tehnike"
     when
         $core: Core()// sta ako nema 3 slobodne tehnike
@@ -185,7 +388,7 @@ rule "RasporedZa3Tehnike"
             $raspored.addZadatak(2,"Vezbaj " + $core.getZadatak(0) + " " + "1h");
         if ($core.getSavladanost(2) >= 50.0)
             $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(0) + " " + "2h");
-*/
+//*_/
 
         if ($core.getSavladanost(2) <= 25.0){
     		$min = "30min";
@@ -200,3 +403,4 @@ rule "RasporedZa3Tehnike"
         $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(2) + " " + $min);
 
 end
+*/
