@@ -92,6 +92,9 @@ public class Core {
 
             }
         }
+
+        Collections.reverse(lista);
+
         return lista.get(br).getPodtehnika().getNaziv();
     }
 

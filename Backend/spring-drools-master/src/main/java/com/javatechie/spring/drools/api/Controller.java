@@ -119,6 +119,14 @@ public class Controller {
         Raspored raspored = new Raspored(coreIrasporedSTR.split("\\[_]")[0]);
         Core core = new Core(coreIrasporedSTR.split("\\[_]")[1]);
 
+        if (raspored.getBrTehnika() > 3){
+            raspored.setBrTehnika(3);
+        }
+
+        if (raspored.getBrTehnika() < 2){
+            raspored.setBrTehnika(2);
+        }
+
         for (int i = 0 ; i < raspored.getBrTehnika() ; ++i)
             raspored.addZadatak(i, "Zadatak" + (i+1));
 

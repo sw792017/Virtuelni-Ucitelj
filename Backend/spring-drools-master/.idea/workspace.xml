@@ -60,7 +60,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Bezbednost/admin backend/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -68,7 +68,97 @@
       <recent name="C:\Users\User\Documents\GitHub\Virtuelni-Ucitelj\Backend\spring-drools-master\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.DroolsTest">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DroolsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-drools" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javatechie.spring.drools.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
+      <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DroolsTest.PravacTest_Bas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-drools" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javatechie.spring.drools.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
+      <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
+      <option name="METHOD_NAME" value="PravacTest_Bas" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DroolsTest.PravacTest_Glavna" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-drools" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javatechie.spring.drools.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
+      <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
+      <option name="METHOD_NAME" value="PravacTest_Glavna" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DroolsTest.RasporedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-drools" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javatechie.spring.drools.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
+      <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
+      <option name="METHOD_NAME" value="RasporedTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DroolsTest.ZvukTest_Narodna" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-drools" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javatechie.spring.drools.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
+      <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
+      <option name="METHOD_NAME" value="ZvukTest_Narodna" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SpringDroolsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="spring-drools" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.javatechie.spring.drools.api.SpringDroolsApplication" />
@@ -76,6 +166,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.DroolsTest" />
+        <item itemvalue="JUnit.DroolsTest.RasporedTest" />
+        <item itemvalue="JUnit.DroolsTest.PravacTest_Bas" />
+        <item itemvalue="JUnit.DroolsTest.PravacTest_Glavna" />
+        <item itemvalue="JUnit.DroolsTest.ZvukTest_Narodna" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -87,7 +186,12 @@
       <updated>1622097543538</updated>
       <workItem from="1622097544754" duration="34553000" />
       <workItem from="1622303323163" duration="4454000" />
-      <workItem from="1622349410919" duration="1378000" />
+      <workItem from="1622349410919" duration="1756000" />
+      <workItem from="1622351265149" duration="32000" />
+      <workItem from="1622390055276" duration="1936000" />
+      <workItem from="1622470581901" duration="78000" />
+      <workItem from="1622544641446" duration="659000" />
+      <workItem from="1622547697652" duration="7754000" />
     </task>
     <servers />
   </component>
@@ -107,46 +211,50 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1622560794407">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622560794407" />
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1622174682500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622174682500" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1622115500198">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1622470673241">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622115500198" />
-    <state width="1877" height="294" key="GridCell.Tab.0.bottom" timestamp="1622350663525">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622470673241" />
+    <state width="1877" height="298" key="GridCell.Tab.0.bottom" timestamp="1622564503626">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="294" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622350663525" />
-    <state width="1877" height="294" key="GridCell.Tab.0.center" timestamp="1622350663525">
+    <state width="1877" height="298" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622564503626" />
+    <state width="1877" height="298" key="GridCell.Tab.0.center" timestamp="1622564503626">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="294" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622350663525" />
-    <state width="1877" height="294" key="GridCell.Tab.0.left" timestamp="1622350663524">
+    <state width="1877" height="298" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622564503626" />
+    <state width="1877" height="298" key="GridCell.Tab.0.left" timestamp="1622564503626">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="294" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622350663524" />
-    <state width="1877" height="294" key="GridCell.Tab.0.right" timestamp="1622350663525">
+    <state width="1877" height="298" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622564503626" />
+    <state width="1877" height="298" key="GridCell.Tab.0.right" timestamp="1622564503626">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="294" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622350663525" />
-    <state width="1877" height="294" key="GridCell.Tab.1.bottom" timestamp="1622350663525">
+    <state width="1877" height="298" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622564503626" />
+    <state width="1877" height="294" key="GridCell.Tab.1.bottom" timestamp="1622561233359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="294" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622350663525" />
-    <state width="1877" height="294" key="GridCell.Tab.1.center" timestamp="1622350663525">
+    <state width="1877" height="294" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622561233359" />
+    <state width="1877" height="294" key="GridCell.Tab.1.center" timestamp="1622561233359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="294" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622350663525" />
-    <state width="1877" height="294" key="GridCell.Tab.1.left" timestamp="1622350663525">
+    <state width="1877" height="294" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622561233359" />
+    <state width="1877" height="294" key="GridCell.Tab.1.left" timestamp="1622561233359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="294" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622350663525" />
-    <state width="1877" height="294" key="GridCell.Tab.1.right" timestamp="1622350663525">
+    <state width="1877" height="294" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622561233359" />
+    <state width="1877" height="294" key="GridCell.Tab.1.right" timestamp="1622561233359">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="294" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622350663525" />
+    <state width="1877" height="294" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622561233359" />
     <state width="1877" height="348" key="GridCell.Tab.2.bottom" timestamp="1622197263567">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -163,6 +271,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622197263567" />
+    <state x="490" y="175" key="Maven.ArtifactSearchDialog" timestamp="1622553990002">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="490" y="175" key="Maven.ArtifactSearchDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622553990002" />
     <state x="690" y="281" key="extract.method.dialog" timestamp="1622137584016">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
