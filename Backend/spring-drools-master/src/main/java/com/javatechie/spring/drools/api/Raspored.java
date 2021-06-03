@@ -53,6 +53,22 @@ public class Raspored {
 	}
 
 	public void addZadatak(int i, String s){
-		this.zadaci.set(i, s);
+		try {
+			this.zadaci.set(i, s);
+		}catch (Exception e){
+			for (int j = 0 ; j < i ; ++j)
+				try {
+					if (this.getZadatak(j).equals(""))
+						this.addZadatak(j, "Zadatak" + (j + 1));
+				}catch (java.lang.IndexOutOfBoundsException e2){
+					List<String> rr = this.getZadaci();
+					rr.add("Zadatak" + (j + 1));
+					this.setZadaci(rr);
+				}
+		}
+	}
+
+	public String getZadatak(int i){
+		return this.zadaci.get(i);
 	}
 }

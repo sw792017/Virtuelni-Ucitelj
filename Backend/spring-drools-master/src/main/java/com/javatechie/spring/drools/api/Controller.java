@@ -115,7 +115,6 @@ public class Controller {
 
     @PostMapping("/Raspored")
     public String NapraviRaspored(@RequestBody String coreIrasporedSTR) {
-
         Raspored raspored = new Raspored(coreIrasporedSTR.split("\\[_]")[0]);
         Core core = new Core(coreIrasporedSTR.split("\\[_]")[1]);
 
@@ -138,8 +137,60 @@ public class Controller {
 
         FactHandle rpt = session.insert(raspored);
         FactHandle cot = session.insert(core);
+        FactHandle sta = session.insert("Raspored");
         session.fireAllRules();
 
+        session.delete(rpt);
+        session.delete(cot);
+        session.delete(sta);
+
+        return raspored.toString();
+    }
+
+    @PostMapping(value="/CustomTehnika", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String CustomTehnika(@RequestBody String tehnikaSTR) {
+        String tehnika = tehnikaSTR.split("\\[_]")[0];
+        Raspored raspored = new Raspored(tehnikaSTR.split("\\[_]")[1]);
+        Core core = new Core(tehnikaSTR.split("\\[_]")[2]);
+
+
+        for (int i = 0 ; i < raspored.getBrTehnika()+1 ; ++i)
+            try {
+                if (raspored.getZadatak(i).equals(""))
+                    raspored.addZadatak(i, "Zadatak" + (i + 1));
+            }catch (java.lang.IndexOutOfBoundsException e){
+                List<String> rr = raspored.getZadaci();
+                rr.add("Zadatak" + (i + 1));
+                raspored.setZadaci(rr);
+            }
+
+        System.out.println("ODABRANA TEHNIKA STR--------------\n");
+        System.out.println(tehnikaSTR);
+
+        System.out.println("CORE STR--------------\n");
+        System.out.println(core.toString());
+
+        System.out.println("RASPORED STR--------------\n");
+        System.out.println(raspored.toString());
+
+        String tip = "Custom";
+        int id = -1;
+
+        try{
+            id = Integer.parseInt(tehnika);
+        }catch (Exception e) {
+            return null;
+        }
+
+        FactHandle mint = session.insert(id);
+        FactHandle f = session.insert(tip);
+        FactHandle rpt = session.insert(raspored);
+        FactHandle cot = session.insert(core);
+
+        session.fireAllRules();
+
+        session.delete(mint);
+        session.delete(f);
         session.delete(rpt);
         session.delete(cot);
 

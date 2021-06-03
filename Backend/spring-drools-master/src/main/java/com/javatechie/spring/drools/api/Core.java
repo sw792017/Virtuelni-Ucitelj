@@ -240,4 +240,14 @@ public class Core {
         }
         return str.substring(0, str.length() - 3);
     }
+
+    public int getStara(){
+        for (int i = 0 ; i < this.getTehnike().size() ; ++i){
+            System.out.println("UNIX " + ((new Date()).getTime() - this.getTehnike().get(i).getPresao().getTime()));
+            if(((new Date()).getTime() - this.getTehnike().get(i).getPresao().getTime()) >= (2678400000L)){
+                return i;
+            }
+        }
+        return -1;
+    }
 }
