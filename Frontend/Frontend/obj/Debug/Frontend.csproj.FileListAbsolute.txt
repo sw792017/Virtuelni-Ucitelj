@@ -8,3 +8,4 @@ C:\Users\User\Documents\GitHub\Virtuelni-Ucitelj\Frontend\Frontend\obj\Debug\Fro
 C:\Users\User\Documents\GitHub\Virtuelni-Ucitelj\Frontend\Frontend\obj\Debug\Frontend.csproj.CoreCompileInputs.cache
 C:\Users\User\Documents\GitHub\Virtuelni-Ucitelj\Frontend\Frontend\obj\Debug\Frontend.exe
 C:\Users\User\Documents\GitHub\Virtuelni-Ucitelj\Frontend\Frontend\obj\Debug\Frontend.pdb
+C:\Users\User\Documents\GitHub\Virtuelni-Ucitelj\Frontend\Frontend\obj\Debug\Frontend.minut.resources

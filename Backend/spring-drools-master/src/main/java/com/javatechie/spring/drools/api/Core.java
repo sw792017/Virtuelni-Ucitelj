@@ -17,10 +17,10 @@ public class Core {
 
         for(String str : tehnike.split("@@@")){
             try {
-                System.out.println(str);
+                //System.out.println(str);
                 this.tehnike.add(new Tehnika(str));
             }catch (Exception e){
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
             }
         }
     }
@@ -47,7 +47,7 @@ public class Core {
         return lista.get(br);
     }*/
 
-    public Tehnika getTehnika(int br){
+    public Tehnika getTehnika(int br) throws Exception {
         Tehnika tehnika = tehnike.get(0);
         List<Tehnika> lista = this.getTehnike();
         List<String> drugi = new ArrayList<>();
@@ -55,6 +55,7 @@ public class Core {
         for(int i = 0 ; i < br ; ++i) {
             tren = 0;
             for (Tehnika t : lista) {
+                tehnika = new Tehnika("placeholder", new ArrayList<PodTehnika>(), -1, new Date());
                 if (tehnika.getPrioritet() < t.getPrioritet() && !drugi.contains(t.getNaziv())) {
                     tehnika = t;
                 }
@@ -62,8 +63,12 @@ public class Core {
             }
             drugi.add(tehnika.getNaziv());
         }
-        System.out.println(tehnika.toString());
-        return tehnika;
+        //System.out.println(tehnika.toString());
+        if(!tehnika.getNaziv().equals("placeholder"))
+            return tehnika;
+        else {
+            throw new Exception("vraca placeholder");
+        }
 
         /*for(int i = 0; i<lista.size(); i++ ) {
             for (int j = i + 1; j < lista.size(); j++) {
@@ -77,8 +82,12 @@ public class Core {
     }
 
     public double getSavladanost(int br){
-        System.out.println(getTehnika(br).getPodtehnika().getSavadao());
-        return getTehnika(br).getPodtehnika().getSavadao();
+        //System.out.println(getTehnika(br).getPodtehnika().getSavadao());
+        try {
+            return getTehnika(br).getPodtehnika().getSavadao();
+        }catch (Exception e){
+            return -1;
+        }
     }
 
     public String getZadatak(int br){
@@ -113,7 +122,7 @@ public class Core {
                 pravac = 3;
                 break;
             default:
-                System.out.println("Pravac ne prstoji");
+                //System.out.println("Pravac ne prstoji");
                 return;
         }
         try {
@@ -124,7 +133,7 @@ public class Core {
             while (myReader.hasNextLine()) {
                 if(i == pravac) {
                     String data = myReader.nextLine();
-                    System.out.println(data);
+                    //System.out.println(data);
 
                     int iterator = 0;
 
@@ -144,7 +153,7 @@ public class Core {
             myReader.close();
         } catch (FileNotFoundException e) {
             try {
-                System.out.println("Fajl je ostecen....\nPravljenje novog");
+                //System.out.println("Fajl je ostecen....\nPravljenje novog");
                 File myObj = new File("Pravci.txt");
                 myObj.createNewFile();
                 FileWriter myWriter = new FileWriter(myObj);
@@ -154,10 +163,10 @@ public class Core {
                 myWriter.close();
                 setPravac(pravacStr);
             } catch (Exception ee) {
-                System.out.println("Nemate dozvolu da napravite fajl");
+                //System.out.println("Nemate dozvolu da napravite fajl");
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -182,7 +191,7 @@ public class Core {
                 zvuk = 5;
                 break;
             default:
-                System.out.println("Zvuk ne postoji");
+                //System.out.println("Zvuk ne postoji");
                 return;
         }
         try {
@@ -193,7 +202,7 @@ public class Core {
             while (myReader.hasNextLine()) {
                 if(i == zvuk) {
                     String data = myReader.nextLine();
-                    System.out.println(data);
+                    //System.out.println(data);
 
                     int iterator = 0;
 
@@ -213,7 +222,7 @@ public class Core {
             myReader.close();
         } catch (FileNotFoundException e) {
             try {
-                System.out.println("Fajl je ostecen....\nPravljenje novog");
+                //System.out.println("Fajl je ostecen....\nPravljenje novog");
                 File myObj = new File("Zvuci.txt");
                 myObj.createNewFile();
                 FileWriter myWriter = new FileWriter(myObj);
@@ -225,10 +234,10 @@ public class Core {
                 myWriter.close();
                 setPravac(zvukStr);
             } catch (Exception ee) {
-                System.out.println("Nemate dozvolu da napravite fajl");
+                //System.out.println("Nemate dozvolu da napravite fajl");
             }
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -243,7 +252,7 @@ public class Core {
 
     public int getStara(){
         for (int i = 0 ; i < this.getTehnike().size() ; ++i){
-            System.out.println("UNIX " + ((new Date()).getTime() - this.getTehnike().get(i).getPresao().getTime()));
+            //System.out.println("UNIX " + ((new Date()).getTime() - this.getTehnike().get(i).getPresao().getTime()));
             if(((new Date()).getTime() - this.getTehnike().get(i).getPresao().getTime()) >= (2678400000L)){
                 return i;
             }

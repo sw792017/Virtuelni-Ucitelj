@@ -31,10 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.ponedeljak = new System.Windows.Forms.Panel();
+            this.LAB_PON = new System.Windows.Forms.Label();
             this.utorak = new System.Windows.Forms.Panel();
+            this.LAB_UTO = new System.Windows.Forms.Label();
             this.sreda = new System.Windows.Forms.Panel();
+            this.LAB_SRE = new System.Windows.Forms.Label();
             this.cetvrtak = new System.Windows.Forms.Panel();
+            this.LAB_CET = new System.Windows.Forms.Label();
             this.petak = new System.Windows.Forms.Panel();
+            this.LAB_PET = new System.Windows.Forms.Label();
             this.nedelja = new System.Windows.Forms.Panel();
             this.subota = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -63,48 +68,106 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.levimeni = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.meni = new System.Windows.Forms.Panel();
             this.metronom = new System.Windows.Forms.Timer(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.debug = new System.Windows.Forms.Label();
+            this.ponedeljak.SuspendLayout();
+            this.utorak.SuspendLayout();
+            this.sreda.SuspendLayout();
+            this.cetvrtak.SuspendLayout();
+            this.petak.SuspendLayout();
             this.levimeni.SuspendLayout();
             this.SuspendLayout();
             // 
             // ponedeljak
             // 
+            this.ponedeljak.Controls.Add(this.LAB_PON);
             this.ponedeljak.Location = new System.Drawing.Point(230, 137);
             this.ponedeljak.Name = "ponedeljak";
             this.ponedeljak.Size = new System.Drawing.Size(131, 200);
             this.ponedeljak.TabIndex = 0;
             // 
+            // LAB_PON
+            // 
+            this.LAB_PON.AutoSize = true;
+            this.LAB_PON.Location = new System.Drawing.Point(21, 21);
+            this.LAB_PON.Name = "LAB_PON";
+            this.LAB_PON.Size = new System.Drawing.Size(41, 13);
+            this.LAB_PON.TabIndex = 0;
+            this.LAB_PON.Text = "label18";
+            // 
             // utorak
             // 
+            this.utorak.Controls.Add(this.LAB_UTO);
             this.utorak.Location = new System.Drawing.Point(367, 137);
             this.utorak.Name = "utorak";
             this.utorak.Size = new System.Drawing.Size(131, 200);
             this.utorak.TabIndex = 1;
             // 
+            // LAB_UTO
+            // 
+            this.LAB_UTO.AutoSize = true;
+            this.LAB_UTO.Location = new System.Drawing.Point(20, 21);
+            this.LAB_UTO.Name = "LAB_UTO";
+            this.LAB_UTO.Size = new System.Drawing.Size(41, 13);
+            this.LAB_UTO.TabIndex = 1;
+            this.LAB_UTO.Text = "label18";
+            // 
             // sreda
             // 
+            this.sreda.Controls.Add(this.LAB_SRE);
             this.sreda.Location = new System.Drawing.Point(504, 137);
             this.sreda.Name = "sreda";
             this.sreda.Size = new System.Drawing.Size(131, 200);
             this.sreda.TabIndex = 1;
             // 
+            // LAB_SRE
+            // 
+            this.LAB_SRE.AutoSize = true;
+            this.LAB_SRE.Location = new System.Drawing.Point(16, 21);
+            this.LAB_SRE.Name = "LAB_SRE";
+            this.LAB_SRE.Size = new System.Drawing.Size(41, 13);
+            this.LAB_SRE.TabIndex = 0;
+            this.LAB_SRE.Text = "label19";
+            // 
             // cetvrtak
             // 
+            this.cetvrtak.Controls.Add(this.LAB_CET);
             this.cetvrtak.Location = new System.Drawing.Point(641, 137);
             this.cetvrtak.Name = "cetvrtak";
             this.cetvrtak.Size = new System.Drawing.Size(131, 200);
             this.cetvrtak.TabIndex = 1;
             // 
+            // LAB_CET
+            // 
+            this.LAB_CET.AutoSize = true;
+            this.LAB_CET.Location = new System.Drawing.Point(17, 23);
+            this.LAB_CET.Name = "LAB_CET";
+            this.LAB_CET.Size = new System.Drawing.Size(41, 13);
+            this.LAB_CET.TabIndex = 2;
+            this.LAB_CET.Text = "label18";
+            // 
             // petak
             // 
+            this.petak.Controls.Add(this.LAB_PET);
             this.petak.Location = new System.Drawing.Point(778, 137);
             this.petak.Name = "petak";
             this.petak.Size = new System.Drawing.Size(131, 200);
             this.petak.TabIndex = 1;
+            // 
+            // LAB_PET
+            // 
+            this.LAB_PET.AutoSize = true;
+            this.LAB_PET.Location = new System.Drawing.Point(18, 21);
+            this.LAB_PET.Name = "LAB_PET";
+            this.LAB_PET.Size = new System.Drawing.Size(41, 13);
+            this.LAB_PET.TabIndex = 1;
+            this.LAB_PET.Text = "label20";
             // 
             // nedelja
             // 
@@ -292,6 +355,7 @@
             this.dodajVezbu.TabIndex = 18;
             this.dodajVezbu.Text = "+ Dodaj Vezbu";
             this.dodajVezbu.UseVisualStyleBackColor = false;
+            this.dodajVezbu.Click += new System.EventHandler(this.dodajVezbu_Click);
             // 
             // label8
             // 
@@ -404,35 +468,6 @@
             this.levimeni.TabIndex = 3;
             this.levimeni.Paint += new System.Windows.Forms.PaintEventHandler(this.levimeni_Paint);
             // 
-            // meni
-            // 
-            this.meni.BackColor = System.Drawing.Color.MediumPurple;
-            this.meni.Location = new System.Drawing.Point(0, 0);
-            this.meni.Name = "meni";
-            this.meni.Size = new System.Drawing.Size(985, 44);
-            this.meni.TabIndex = 4;
-            // 
-            // metronom
-            // 
-            this.metronom.Tick += new System.EventHandler(this.metronom_Tick);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.textBox1.Location = new System.Drawing.Point(8, 62);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(82, 20);
-            this.textBox1.TabIndex = 0;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(91, 66);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(30, 13);
-            this.label17.TabIndex = 1;
-            this.label17.Text = "BPM";
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.MediumPurple;
@@ -448,12 +483,78 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(91, 66);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(30, 13);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "BPM";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.textBox1.Location = new System.Drawing.Point(8, 62);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(82, 20);
+            this.textBox1.TabIndex = 0;
+            // 
+            // meni
+            // 
+            this.meni.BackColor = System.Drawing.Color.MediumPurple;
+            this.meni.Location = new System.Drawing.Point(0, 0);
+            this.meni.Name = "meni";
+            this.meni.Size = new System.Drawing.Size(985, 44);
+            this.meni.TabIndex = 4;
+            // 
+            // metronom
+            // 
+            this.metronom.Tick += new System.EventHandler(this.metronom_Tick);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.MediumPurple;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button2.Location = new System.Drawing.Point(765, 409);
+            this.button2.Margin = new System.Windows.Forms.Padding(0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(210, 32);
+            this.button2.TabIndex = 28;
+            this.button2.Text = "Zavrsio za ovu nedelju";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Enabled = false;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(710, 55);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 29;
+            this.comboBox1.Visible = false;
+            // 
+            // debug
+            // 
+            this.debug.AutoSize = true;
+            this.debug.Location = new System.Drawing.Point(130, 357);
+            this.debug.Name = "debug";
+            this.debug.Size = new System.Drawing.Size(41, 13);
+            this.debug.TabIndex = 1;
+            this.debug.Text = "label18";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(984, 450);
+            this.ClientSize = new System.Drawing.Size(984, 451);
+            this.Controls.Add(this.debug);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.meni);
             this.Controls.Add(this.levimeni);
             this.Controls.Add(this.label16);
@@ -489,12 +590,22 @@
             this.Controls.Add(this.ponedeljak);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1000, 489);
+            this.MaximumSize = new System.Drawing.Size(1000, 1038);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1000, 489);
+            this.MinimumSize = new System.Drawing.Size(1000, 490);
             this.Name = "Form1";
             this.Text = "Virtuelni Ucitelj";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.ponedeljak.ResumeLayout(false);
+            this.ponedeljak.PerformLayout();
+            this.utorak.ResumeLayout(false);
+            this.utorak.PerformLayout();
+            this.sreda.ResumeLayout(false);
+            this.sreda.PerformLayout();
+            this.cetvrtak.ResumeLayout(false);
+            this.cetvrtak.PerformLayout();
+            this.petak.ResumeLayout(false);
+            this.petak.PerformLayout();
             this.levimeni.ResumeLayout(false);
             this.levimeni.PerformLayout();
             this.ResumeLayout(false);
@@ -542,6 +653,14 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label LAB_SRE;
+        private System.Windows.Forms.Label LAB_PET;
+        private System.Windows.Forms.Label LAB_PON;
+        private System.Windows.Forms.Label LAB_UTO;
+        private System.Windows.Forms.Label LAB_CET;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label debug;
     }
 }
 

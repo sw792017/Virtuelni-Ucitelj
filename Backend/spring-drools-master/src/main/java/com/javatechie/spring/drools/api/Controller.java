@@ -4,9 +4,7 @@ import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,22 +14,39 @@ public class Controller {
     @Autowired
     private KieSession session;
 
+    @PostMapping(value = "/get/{id}")
+    public String getTehnika(@PathVariable("id") int id, @RequestBody String str)
+    {
+
+        try {
+            Core cc = new Core(str);
+            return cc.getTehnika(id).toString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     @PostMapping(value="/Presao", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String Presao(@RequestBody String tehnikaSTR) {
 
         Integer min = Integer.parseInt(tehnikaSTR.split("\\|\\|")[0]);
         tehnikaSTR = tehnikaSTR.split("\\|\\|")[1];
 
-        System.out.println("TEHNIKA STR--------------\n");
-        System.out.println(tehnikaSTR);
+        //System.out.println("TEHNIKA STR--------------\n");
+        //System.out.println(tehnikaSTR);
+        Tehnika tehnika;
+        try {
+            tehnika = new Tehnika(tehnikaSTR);
+        }catch (Exception e){
+            System.out.println("Nije uspeo da pronadje tehniku za " + tehnikaSTR);
+            return "";
+        }
 
-        Tehnika tehnika = new Tehnika(tehnikaSTR);
+        //System.out.println("TEHNIKA STR--------------\n");
+        //System.out.println(tehnika.toString());
 
-        System.out.println("TEHNIKA STR--------------\n");
-        System.out.println(tehnika.toString());
-
-        System.out.println("MIN --------------\n");
-        System.out.println(min.toString());
+        //System.out.println("MIN --------------\n");
+        //System.out.println(min.toString());
 
 
         FactHandle th = session.insert(tehnika);
@@ -49,16 +64,16 @@ public class Controller {
         String pravac = coreSTR.split("\\|\\|")[0];
         coreSTR = coreSTR.split("\\|\\|")[1];
 
-        System.out.println("TEHNIKE STR--------------\n");
-        System.out.println(coreSTR);
+        //System.out.println("TEHNIKE STR--------------\n");
+        //System.out.println(coreSTR);
 
         Core core = new Core(coreSTR);
 
-        System.out.println("TEHNIKA STR--------------\n");
-        System.out.println(core.toString());
+        //System.out.println("TEHNIKA STR--------------\n");
+        //System.out.println(core.toString());
 
-        System.out.println("PRAVAC---------------\n");
-        System.out.println(pravac);
+        //System.out.println("PRAVAC---------------\n");
+        //System.out.println(pravac);
 
 
         List<String> pravci = new ArrayList<>();
@@ -83,16 +98,16 @@ public class Controller {
         String zvuk = coreSTR.split("\\|\\|")[0];
         coreSTR = coreSTR.split("\\|\\|")[1];
 
-        System.out.println("TEHNIKE STR--------------\n");
-        System.out.println(coreSTR);
+        //System.out.println("TEHNIKE STR--------------\n");
+        //System.out.println(coreSTR);
 
         Core core = new Core(coreSTR);
 
-        System.out.println("TEHNIKA STR--------------\n");
-        System.out.println(core.toString());
+        //System.out.println("TEHNIKA STR--------------\n");
+        //System.out.println(core.toString());
 
-        System.out.println("ZVUK---------------\n");
-        System.out.println(zvuk);
+        //System.out.println("ZVUK---------------\n");
+        //System.out.println(zvuk);
 
         List<String> zvukovi = new ArrayList<>();
         zvukovi.add("Rock");
@@ -129,11 +144,11 @@ public class Controller {
         for (int i = 0 ; i < raspored.getBrTehnika() ; ++i)
             raspored.addZadatak(i, "Zadatak" + (i+1));
 
-        System.out.println("CORE STR--------------\n");
-        System.out.println(core.toString());
+        //System.out.println("CORE STR--------------\n");
+        //System.out.println(core.toString());
 
-        System.out.println("RASPORED STR--------------\n");
-        System.out.println(raspored.toString());
+        //System.out.println("RASPORED STR--------------\n");
+        //System.out.println(raspored.toString());
 
         FactHandle rpt = session.insert(raspored);
         FactHandle cot = session.insert(core);
@@ -156,22 +171,23 @@ public class Controller {
 
         for (int i = 0 ; i < raspored.getBrTehnika()+1 ; ++i)
             try {
-                if (raspored.getZadatak(i).equals(""))
-                    raspored.addZadatak(i, "Zadatak" + (i + 1));
+                if (raspored.getZadatak(i).equals("") || raspored.getZadatak(i).equals(" "))
+                    if(!(i == 2 && raspored.getBrTehnika() == 2))
+                        raspored.addZadatak(i, "Zadatak" + (i + 1));
             }catch (java.lang.IndexOutOfBoundsException e){
                 List<String> rr = raspored.getZadaci();
                 rr.add("Zadatak" + (i + 1));
                 raspored.setZadaci(rr);
             }
 
-        System.out.println("ODABRANA TEHNIKA STR--------------\n");
-        System.out.println(tehnikaSTR);
+        //System.out.println("ODABRANA TEHNIKA STR--------------\n");
+        //System.out.println(tehnikaSTR);
 
-        System.out.println("CORE STR--------------\n");
-        System.out.println(core.toString());
+        //System.out.println("CORE STR--------------\n");
+        //System.out.println(core.toString());
 
-        System.out.println("RASPORED STR--------------\n");
-        System.out.println(raspored.toString());
+        //System.out.println("RASPORED STR--------------\n");
+        //System.out.println(raspored.toString());
 
         String tip = "Custom";
         int id = -1;

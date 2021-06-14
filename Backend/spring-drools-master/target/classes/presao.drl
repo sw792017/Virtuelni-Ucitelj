@@ -6,35 +6,17 @@ import com.javatechie.spring.drools.api.Raspored;
 import com.javatechie.spring.drools.api.Lista
 import java.util.Date;
 
-dialect  "mvel"
-
-
-rule "sssssssssssssss"
-    when
-        $t: Tehnika($prioritet: prioritet > 100)
-    then
-        $t.setPrioritet(100);
-end
-
-
-rule "CorePreko100"
-    when
-        Core( $teh: tehnike )
-        $t: Tehnika( prioritet > 100 ) from $teh
-    then
-        $t.setPrioritet(100);
-end
 
 rule "Preko100"
     when
-        $t: Tehnika($t.getPrioritet() > 100)
+        $t: Tehnika(prioritet > 100)
     then
         $t.setPrioritet(100);
 end
 
 rule "Ispod0"
     when
-        $t: Tehnika($t.getPrioritet() < 0)
+        $t: Tehnika($t.prioritet < 0)
     then
         $t.setPrioritet(0);
 end
@@ -47,6 +29,13 @@ rule "SavladaoViseOd100"
         $pt.setSavadao(100);
     end
 
+rule "SavladaoViseOd1000Niz"
+    when
+        Tehnika( $ap: podtehnike )
+        $pt: PodTehnika( savadao > 100) from $ap
+    then
+         $pt.setSavadao(100);
+    end
 
 
 ///////////////////////////////////////////////////////////////////////  presao.drl

@@ -16,8 +16,7 @@ public class Tehnika {
 	private List<PodTehnika> podtehnike;
 	private double prioritet;
 	private Date presao;
-	
-	
+
 	@Override
 	public String toString() {
 		//Test Tehnika|60|01/01/2021|pt1@50@100%pt2@50@100%pt3@50@50%pt4@50@0%pt5@50@0
@@ -39,12 +38,15 @@ public class Tehnika {
 		this.presao = presao;
 	}
 	
-	public Tehnika(String json) {
+	public Tehnika(String json) throws Exception {
 
 		String[] niz = json.split("\\|");
 		
 		this.naziv = niz[0];
 		this.prioritet = Double.parseDouble(niz[1]);
+
+		if(this.naziv == "placeholder")
+			throw new Exception("Ne moze dakonvertuje placeholder u tehniku");
 
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -55,8 +57,9 @@ public class Tehnika {
 		}catch (Exception e) {
 			this.presao = new Date(System.currentTimeMillis());
 		}
-		
+		System.out.println("niz ---- " + json);
 		this.podtehnike = new ArrayList<PodTehnika>();
+		System.out.println("Split za " + niz[3] + " sa \\\"");
 
 		for (String linija : niz[3].split("\\\"")[0].split("\\%"))
 		{
@@ -124,23 +127,23 @@ public class Tehnika {
 	public void setPresao(Date presao) {
 		this.presao = presao;
 	}
-
+/*
 	static void main(String[] args) {
-		String s="Test Tehnika|60|01/01/2021|pt1@50@100%pt2@50@100%pt3@50@50%pt4@50@0%pt5@50@0";/*"{\n" + 
-				"				\"naziv\":\"Test Tehnika\",\n" + 
-				"				\"podtehnike\":[\r\n" + 
-				"					{ \"naziv\":\"pt1\", \"korak\":\"50\", \"savadao\":\"100\" },\n" + 
-				"					{ \"naziv\":\"pt2\", \"korak\":\"50\", \"savadao\":\"100\" },\n" + 
-				"					{ \"naziv\":\"pt3\", \"korak\":\"50\", \"savadao\":\"100\" },\n" + 
-				"					{ \"naziv\":\"pt4\", \"korak\":\"50\", \"savadao\":\"100\" },\n" + 
-				"					{ \"naziv\":\"pt5\", \"korak\":\"50\", \"savadao\":\"100\" },\n" + 
-				"					{ \"naziv\":\"pt6\", \"korak\":\"50\", \"savadao\":\"100\" }\n" + 
-				"				],\n" + 
-				"				\"prioritet\":\"60\"\n" + 
-				"			}";*/
+		String s="Test Tehnika|60|01/01/2021|pt1@50@100%pt2@50@100%pt3@50@50%pt4@50@0%pt5@50@0";/*"{\n" +
+				"				\"naziv\":\"Test Tehnika\",\n" +
+				"				\"podtehnike\":[\r\n" +
+				"					{ \"naziv\":\"pt1\", \"korak\":\"50\", \"savadao\":\"100\" },\n" +
+				"					{ \"naziv\":\"pt2\", \"korak\":\"50\", \"savadao\":\"100\" },\n" +
+				"					{ \"naziv\":\"pt3\", \"korak\":\"50\", \"savadao\":\"100\" },\n" +
+				"					{ \"naziv\":\"pt4\", \"korak\":\"50\", \"savadao\":\"100\" },\n" +
+				"					{ \"naziv\":\"pt5\", \"korak\":\"50\", \"savadao\":\"100\" },\n" +
+				"					{ \"naziv\":\"pt6\", \"korak\":\"50\", \"savadao\":\"100\" }\n" +
+				"				],\n" +
+				"				\"prioritet\":\"60\"\n" +
+				"			}";* /
 		Tehnika t = new Tehnika(s);
-		
-		System.out.println(t.toString());
-	}
 
+		//System.out.println(t.toString());
+	}
+*/
 }

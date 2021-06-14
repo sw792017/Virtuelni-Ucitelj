@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Net;
 
 namespace Frontend
 {
     public partial class Form1 : Form
     {
+        Raspored raspored;
+        List<Tehnika> tehnike;
+        string url = "http://localhost:8080";
+
         System.Media.SoundPlayer tick = new System.Media.SoundPlayer("clock.wav");
         int stanje = 5;
         public Form1()
@@ -24,6 +30,12 @@ namespace Frontend
             Ofarbaj();
             Datum();
             timer1.Start();
+            ////
+            raspored = new Raspored("2@ | | ");
+            tehnike = Tehnika.IzFajla();
+            NoviRaspored();
+            NapuniDropDown();
+            RefreshGUIRaspored();
         }
 
         private void Ofarbaj()
@@ -40,30 +52,38 @@ namespace Frontend
             button1.BackColor = Color.FromArgb(100, 100, 164);
             meni.BackColor = Color.FromArgb(100, 100, 164);
 
+            LAB_PON.ForeColor = Color.FromArgb(100, 100, 164);
+            LAB_SRE.ForeColor = Color.FromArgb(100, 100, 164);
+            LAB_PET.ForeColor = Color.FromArgb(100, 100, 164);
 
             if (DateTime.Now.DayOfWeek == DayOfWeek.Monday)
             {
                 ponedeljak.BackColor = Color.FromArgb(100, 100, 164);
+                LAB_PON.ForeColor = Color.White;
                 ponedeljak.Paint += new System.Windows.Forms.PaintEventHandler(this.Nacrtaj);
             }
             else if (DateTime.Now.DayOfWeek == DayOfWeek.Tuesday)
             {
                 utorak.BackColor = Color.FromArgb(100, 100, 164);
+                LAB_UTO.ForeColor = Color.White;
                 utorak.Paint += new System.Windows.Forms.PaintEventHandler(this.Nacrtaj);
             }
             else if (DateTime.Now.DayOfWeek == DayOfWeek.Wednesday)
             {
                 sreda.BackColor = Color.FromArgb(100, 100, 164);
+                LAB_SRE.ForeColor = Color.White;
                 sreda.Paint += new System.Windows.Forms.PaintEventHandler(this.Nacrtaj);
             }
             else if (DateTime.Now.DayOfWeek == DayOfWeek.Thursday)
             {
                 cetvrtak.BackColor = Color.FromArgb(100, 100, 164);
+                LAB_CET.ForeColor = Color.White;
                 cetvrtak.Paint += new System.Windows.Forms.PaintEventHandler(this.Nacrtaj);
             }
             else if (DateTime.Now.DayOfWeek == DayOfWeek.Friday)
             {
                 petak.BackColor = Color.FromArgb(100, 100, 164);
+                LAB_PET.ForeColor = Color.White;
                 petak.Paint += new System.Windows.Forms.PaintEventHandler(this.Nacrtaj);
             }
             else if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
@@ -289,6 +309,147 @@ namespace Frontend
                 metronom.Stop();
                 stanje = 5;
                 this.Refresh();
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        public string POST(string link, string content)
+        {
+            var req = WebRequest.Create(url + link);
+            req.Method = "POST";
+
+            byte[] inp = Encoding.UTF8.GetBytes(content);
+
+            req.ContentType = "application/json";
+            req.ContentLength = inp.Length;
+
+            Stream reqS = req.GetRequestStream();
+            reqS.Write(inp, 0, inp.Length);
+
+            WebResponse res = req.GetResponse();
+            Console.WriteLine(((HttpWebResponse)res).StatusDescription);
+
+            Stream respS = res.GetResponseStream();
+
+            StreamReader rdr = new StreamReader(respS);
+            return rdr.ReadToEnd();
+        }
+
+        public void NoviRaspored()
+        {
+            try
+            {
+                string ulaz = raspored.toString() + "[_]" + Tehnika.TehnikeSTR(tehnike);
+                string data = POST("/Raspored", ulaz);
+                raspored = new Raspored(data);
+                Console.WriteLine(data);
+            }
+            catch (Exception e) { MessageBox.Show("Konekcija sa serverom nije uspela"); }
+        }
+
+        public void RefreshGUIRaspored()
+        {
+            if(raspored.getBrTehnika() == 3){
+                LAB_PON.Text = raspored.getZadatak(0);
+                LAB_SRE.Text = raspored.getZadatak(1);
+                LAB_PET.Text = raspored.getZadatak(2);
+                LAB_UTO.Text = raspored.getZadatak(3);
+                LAB_CET.Text = raspored.getZadatak(4);
+            }
+            else {
+                LAB_PON.Text = raspored.getZadatak(0);
+                LAB_PET.Text = raspored.getZadatak(1);
+                LAB_SRE.Text = raspored.getZadatak(035);//Uvek prazan dan (0 3 6 5)
+                LAB_UTO.Text = raspored.getZadatak(3);
+                LAB_CET.Text = raspored.getZadatak(4);
+            }
+
+            string s = "";
+            foreach(Tehnika t in tehnike)
+                s += t.toString().Replace("%", "\n\t       ") + "\n\n\n";
+            debug.Text = s;
+
+        }
+
+        private void NapuniDropDown()
+        {
+            int i = 0;
+            foreach (Tehnika t in tehnike){
+                comboBox1.Items.Insert(i++, t.getNaziv());
+            }
+        }
+
+        private void dodajVezbu_Click(object sender, EventArgs e)
+        {
+            comboBox1.Enabled = comboBox1.Enabled ? false : true;
+            comboBox1.Visible = comboBox1.Visible ? false : true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<Tuple<int, string>> lista = new List<Tuple<int, string>>();
+
+            for (int i = 0; i < 5; ++i)
+                if(raspored.getZadatak(i)!="" && raspored.getZadatak(i) != " " && raspored.getZadatak(i).Contains("Vezbaj"))
+                    try
+                    {
+                        lista.Add(new Tuple<int, string> (0, raspored.getZadatak(i)));
+                    }catch(Exception exception) { Console.Write(exception.Message); }
+
+            minut min = new minut(lista);
+            min.ShowDialog();
+            lista = min.GetData();
+
+
+            //15||Test Tehnika|60|03/06/2021|pt1@50@100%pt2@50@100%pt3@50@50%pt4@50@0%pt5@50@0
+            //br min   ||   tehnika.STR
+            try
+            {
+                List<Tehnika> tt2 = new List<Tehnika>();
+                
+
+                for(int i = 0; i < raspored.getBrTehnika(); ++i){
+                    string tehnika = POST("/get/" + i.ToString(), Tehnika.TehnikeSTR(tehnike));
+                    if (tehnika == "" || tehnika == " ")
+                    {
+                        MessageBox.Show(Tehnika.TehnikeSTR(tehnike), url + "/get/" + i.ToString());
+                        break;
+                    }
+                    string noviRaspored = POST("/Presao", (lista[i]).Item1 + "||" + tehnika);
+                    update(tehnike, new Tehnika(noviRaspored));
+                }
+
+                ////// za kasnije
+
+                if (comboBox1.Enabled == true)
+                {
+                    NoviRaspored();
+                    string ulaz = (comboBox1.SelectedIndex) + "[_]" + (new Raspored(raspored.getBrTehnika())).toString() + "[_]" + Tehnika.TehnikeSTR(tehnike);
+                    if (!(ulaz == "" || ulaz == " "))
+                        raspored = new Raspored(POST("/CustomTehnika", ulaz));
+                    MessageBox.Show(raspored.toString());
+                }
+                else {
+                    NoviRaspored();
+                }
+
+                RefreshGUIRaspored();
+            }
+            catch (Exception exception) { MessageBox.Show("Konekcija sa serverom nije uspela"); Console.Write(exception.Message); }
+        }
+
+        private void update(List<Tehnika> tehnike, Tehnika tehnika)
+        {
+            if (tehnika.getNaziv() == "placeholder")
+                return;
+
+            for(int i = 0; i < tehnike.Count; ++i)
+            {
+                if(tehnike[i].getNaziv() == tehnika.getNaziv())
+                {
+                    tehnike[i] = tehnika;
+                }
             }
         }
     }
