@@ -550,6 +550,7 @@
             this.debug.Size = new System.Drawing.Size(41, 13);
             this.debug.TabIndex = 1;
             this.debug.Text = "label18";
+            this.debug.Visible = false;
             // 
             // Form1
             // 

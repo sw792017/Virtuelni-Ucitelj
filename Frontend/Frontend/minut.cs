@@ -36,8 +36,14 @@ namespace Frontend
                 Label lab = new Label();
                 lab.Name = "l" + br;
                 lab.Text = val.Remove(5, 1);
-                lab.Location = new Point(100, 25 * br);
+                lab.Location = new Point(110, 25 * br);
                 Controls.Add(lab);
+
+                Label mm = new Label();
+                mm.Name = "mm" + br;
+                mm.Text = "min";
+                mm.Location = new Point(90, 25 * br);
+                Controls.Add(mm);
 
                 NumericUpDown num = new NumericUpDown();
                 num.Name = val;

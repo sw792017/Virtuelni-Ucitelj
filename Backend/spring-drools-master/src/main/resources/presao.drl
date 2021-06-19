@@ -7,40 +7,6 @@ import com.javatechie.spring.drools.api.Lista
 import java.util.Date;
 
 
-rule "Preko100"
-    when
-        $t: Tehnika(prioritet > 100)
-    then
-        $t.setPrioritet(100);
-end
-
-rule "Ispod0"
-    when
-        $t: Tehnika($t.prioritet < 0)
-    then
-        $t.setPrioritet(0);
-end
-
-
-rule "SavladaoViseOd100"
-    when
-        $pt: PodTehnika($pt.getSavadao() > 100)
-    then
-        $pt.setSavadao(100);
-    end
-
-rule "SavladaoViseOd1000Niz"
-    when
-        Tehnika( $ap: podtehnike )
-        $pt: PodTehnika( savadao > 100) from $ap
-    then
-         $pt.setSavadao(100);
-    end
-
-
-///////////////////////////////////////////////////////////////////////  presao.drl
-
-
 
 rule "NovuTehnikuSve"
     when
@@ -141,21 +107,6 @@ rule "Prskocio"
         $min: Integer($min==0)
     then
         $t.setPrioritet($t.getPrioritet() - 5);
-end
-
-
-
-///////////////////////////////////////////////////////////////////////  zvuk.drl
-
-
-
-rule "Zvuk"// da li treba da promeni br zadataka ovde?
-    when
-        $core: Core($tehnike: tehnike)
-        $zvuk: String()//$zvuk == "Rock")// e.g.
-        $zvukoci: Lista($tags : elementi contains $zvuk)
-    then
-        $core.setZvuk($zvuk);
 end
 
 

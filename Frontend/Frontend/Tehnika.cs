@@ -118,11 +118,11 @@ namespace Frontend
                             "Prigusene note@50@0" +
                         "@@@" +
                         "Sweep picking|0|01/01/2021|" +
-                            "Na 2 zice@50@0%" +
-                            "Na 3 zice@50@0%" +
-                            "Na 4 zice@50@0%" +
-                            "Na 2 zice sa preskakanjem@50@0%" +
-                            "Na 3 zice sa preskakanjem…@50@0" +
+                            "Sweep picking na 2 zice@50@0%" +
+                            "Sweep picking na 3 zice@50@0%" +
+                            "Sweep picking na 4 zice@50@0%" +
+                            "Sweep picking na 2 zice sa preskakanjem@50@0%" +
+                            "Sweep picking na 3 zice sa preskakanjem…@50@0" +
                         "@@@" +
                         "Harminike|0|01/01/2021|" +
                             "Prirodne harmonike@50@0%" +
