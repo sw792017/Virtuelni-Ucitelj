@@ -144,16 +144,6 @@ rule "Prskocio"
 end
 
 
-rule "Pravac"
-    when
-        $core: Core($tehnike: tehnike)
-        $pravac: String()//$pravac == "Bas")// e.g.
-        $pravci: Lista($tags : elementi contains $pravac)
-    then
-        $core.setPravac($pravac);
-end
-
-
 
 ///////////////////////////////////////////////////////////////////////  zvuk.drl
 
@@ -176,8 +166,8 @@ end
 
 rule "Raspored1Poc"
     when
-        $core: Core($core.getSavladanost(0) <= 25.0)// sta ako nema 3 slobodne tehnike
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak1")
+        $core: Core($core.getSavladanost(0) <= 25.0)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak1", $core.getZadatak(0) != "")
     then
         $raspored.addZadatak(0, "Vezbaj " + $core.getZadatak(0) + " 30min");
 end
@@ -185,7 +175,7 @@ end
 rule "Raspored1Sred"
     when
         $core: Core($core.getSavladanost(0) <= 50.0 && $core.getSavladanost(0) > 25)
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak1")
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak1", $core.getZadatak(0) != "")
     then
         $raspored.addZadatak(0, "Vezbaj " + $core.getZadatak(0) + " 1h");
 end
@@ -193,7 +183,7 @@ end
 rule "Raspored1Kraj"
     when
         $core: Core($core.getSavladanost(0) > 50.0)
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak1")
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak1", $core.getZadatak(0) != "")
     then
         $raspored.addZadatak(0, "Vezbaj " + $core.getZadatak(0) + " 2h");
 end
@@ -201,8 +191,9 @@ end
 
 rule "Raspored2Poc"
     when
-        $core: Core($core.getSavladanost(1) <= 25.0)// sta ako nema 3 slobodne tehnike
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak2")
+        $core: Core($core.getSavladanost(1) <= 25.0)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak2", $core.getZadatak(1) != "")
+
     then
         $raspored.addZadatak(1, "Vezbaj " + $core.getZadatak(1) + " 30min");
 end
@@ -210,7 +201,7 @@ end
 rule "Raspored2Sred"
     when
         $core: Core($core.getSavladanost(1) <= 50.0 && $core.getSavladanost(1) > 25)
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak2")
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak2", $core.getZadatak(1) != "")
     then
         $raspored.addZadatak(1, "Vezbaj " + $core.getZadatak(1) + " 1h");
 end
@@ -218,7 +209,7 @@ end
 rule "Raspored2Kraj"
     when
         $core: Core($core.getSavladanost(1) > 50.0)
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak2")
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak2", $core.getZadatak(1) != "")
     then
         $raspored.addZadatak(1, "Vezbaj " + $core.getZadatak(1) + " 2h");
 end
@@ -226,8 +217,8 @@ end
 
 rule "Raspored3Poc"
     when
-        $core: Core($core.getSavladanost(2) <= 25.0)// sta ako nema 3 slobodne tehnike
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak3")
+        $core: Core($core.getSavladanost(2) <= 25.0)
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak3", $core.getZadatak(2) != "")
     then
         $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(2) + " 30min");
 end
@@ -235,7 +226,7 @@ end
 rule "Raspored3Sred"
     when
         $core: Core($core.getSavladanost(2) <= 50.0 && $core.getSavladanost(2) > 25)
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak3")
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak3", $core.getZadatak(2) != "")
     then
         $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(2) + " 1h");
 end
@@ -243,7 +234,7 @@ end
 rule "Raspored3Kraj"
     when
         $core: Core($core.getSavladanost(2) > 50.0)
-        $raspored: Raspored($zadaci: zadaci contains "Zadatak3")
+        $raspored: Raspored($zadaci: zadaci contains "Zadatak3", $core.getZadatak(2) != "")
     then
         $raspored.addZadatak(2, "Vezbaj " + $core.getZadatak(2) + " 2h");
 end
@@ -253,20 +244,22 @@ rule "CustomTehnikaPoc"
     when
         $tip: String($tip == "Custom")
         $id : Integer()
-        $core: Core($core.getSavladanost($id) <= 25.0)
+        $core: Core($core.getSavladanostId($id) <= 25.0)
         $raspored: Raspored()
     then
-        $raspored.addZadatak(3, "Vezbaj " + $core.getZadatak($id) + " 30min");
+        $raspored.addZadatak(3, "Vezbaj " + $core.getZadatakId($id) + " 30min");
+        $core.getTehnikaId($id).setPrioritet($core.getTehnikaId($id).getPrioritet() * 0.85 + 15);
 end
 
 rule "CustomTehnikaSred"
     when
         $tip: String($tip == "Custom")
         $id : Integer()
-        $core: Core($core.getSavladanost($id) <= 50.0 && $core.getSavladanost($id) > 25)
+        $core: Core($core.getSavladanostId($id) <= 50.0 && $core.getSavladanost($id) > 25)
         $raspored: Raspored()
     then
-        $raspored.addZadatak(3, "Vezbaj " + $core.getZadatak($id) + " 1h");
+        $raspored.addZadatak(3, "Vezbaj " + $core.getZadatakId($id) + " 1h");
+        $core.getTehnikaId($id).setPrioritet($core.getTehnikaId($id).getPrioritet() * 0.85 + 15);
 end
 
 rule "CustomTehnikaKraj"
@@ -274,22 +267,9 @@ rule "CustomTehnikaKraj"
         $t: Tehnika()
         $tip: String($tip == "Custom")
         $id : Integer()
-        $core: Core($core.getSavladanost($id) > 50.0)
+        $core: Core($core.getSavladanostId($id) > 50.0)
         $raspored: Raspored()
     then
-        $raspored.addZadatak(3, "Vezbaj " + $core.getZadatak($id) + " 2h");
-end
-
-
-/////////////////////////////////////////////////////////////////////////////////
-
-
-
-rule "Legacy"
-    when
-        $core: Core()
-        $idl: Integer($core.getStara() != -1)
-        $raspored: Raspored()
-    then
-     $raspored.addZadatak(4, "Vezbaj " + $core.getZadatak($idl) + " 30min");
+        $raspored.addZadatak(3, "Vezbaj " + $core.getZadatakId($id) + " 2h");
+        $core.getTehnikaId($id).setPrioritet($core.getTehnikaId($id).getPrioritet() * 0.85 + 15);
 end

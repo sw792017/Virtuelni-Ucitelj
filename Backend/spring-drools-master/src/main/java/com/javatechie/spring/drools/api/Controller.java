@@ -1,11 +1,20 @@
 package com.javatechie.spring.drools.api;
 
+import org.kie.api.KieBase;
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieBuilder;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.builder.Message;
+import org.kie.api.builder.Results;
+import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +26,26 @@ public class Controller {
     @PostMapping(value = "/get/{id}")
     public String getTehnika(@PathVariable("id") int id, @RequestBody String str)
     {
-
         try {
             Core cc = new Core(str);
             return cc.getTehnika(id).toString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    @PostMapping(value = "/getCC/{id}")
+    public String getCCTehnika(@PathVariable("id") String id, @RequestBody String str)
+    {
+        try {
+            Core cc = new Core(str);
+            int idd = -1;
+            for (int i = 0 ; i < cc.getTehnike().size() ; ++i){
+                if(cc.getTehnikaId(i).getNaziv().equals(id))
+                    idd = i;
+            }
+
+            return cc.getTehnikaId(idd).toString();
         } catch (Exception e) {
             return "";
         }
@@ -32,22 +57,12 @@ public class Controller {
         Integer min = Integer.parseInt(tehnikaSTR.split("\\|\\|")[0]);
         tehnikaSTR = tehnikaSTR.split("\\|\\|")[1];
 
-        //System.out.println("TEHNIKA STR--------------\n");
-        //System.out.println(tehnikaSTR);
         Tehnika tehnika;
         try {
             tehnika = new Tehnika(tehnikaSTR);
-        }catch (Exception e){
-            System.out.println("Nije uspeo da pronadje tehniku za " + tehnikaSTR);
+        }catch (Exception e) {
             return "";
         }
-
-        //System.out.println("TEHNIKA STR--------------\n");
-        //System.out.println(tehnika.toString());
-
-        //System.out.println("MIN --------------\n");
-        //System.out.println(min.toString());
-
 
         FactHandle th = session.insert(tehnika);
         FactHandle mint = session.insert(min);
@@ -56,39 +71,76 @@ public class Controller {
         session.delete(th);
         session.delete(mint);
 
+        //////////////
+        try {
+            KieServices kieServices = KieServices.Factory.get();
+            KieFileSystem kfs = kieServices.newKieFileSystem();
+            FileInputStream fis = new FileInputStream("src/main/resources/offer.drl");
+            kfs.write("src/main/resources/offer.drl",
+                    kieServices.getResources().newInputStreamResource(fis));
+            KieBuilder kieBuilder = kieServices.newKieBuilder(kfs).buildAll();
+            Results results = kieBuilder.getResults();
+            if (results.hasMessages(Message.Level.ERROR)) {
+                //System.out.println(results.getMessages());
+                throw new IllegalStateException("### errors ###");
+            }
+            KieContainer kieContainer =
+                    kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+            KieBase kieBase = kieContainer.getKieBase();
+            KieSession kieSession = kieBase.newKieSession();
+
+
+            FactHandle th2 = kieSession.insert(tehnika);
+            FactHandle mint2 = kieSession.insert(min);
+            kieSession.fireAllRules();
+
+            kieSession.delete(th2);
+            kieSession.delete(mint2);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         return tehnika.toString();
     }
 
     @PostMapping("/OdaberiPravac")
     public String OdaberiPravac(@RequestBody String coreSTR) {
+        //System.out.println(coreSTR);
+
         String pravac = coreSTR.split("\\|\\|")[0];
         coreSTR = coreSTR.split("\\|\\|")[1];
 
-        //System.out.println("TEHNIKE STR--------------\n");
-        //System.out.println(coreSTR);
-
+        coreSTR = Normalisi(coreSTR);
         Core core = new Core(coreSTR);
 
-        //System.out.println("TEHNIKA STR--------------\n");
-        //System.out.println(core.toString());
+        try {//nece puci, ali FileInputStream trazi da budde u try-u
+            KieServices kieServices = KieServices.Factory.get();
+            KieFileSystem kfs = kieServices.newKieFileSystem();
+            FileInputStream fis = new FileInputStream("src/main/resources/pravac.drl");
+            kfs.write("src/main/resources/pravac.drl",
+                    kieServices.getResources().newInputStreamResource(fis));
+            KieBuilder kieBuilder = kieServices.newKieBuilder(kfs).buildAll();
+            Results results = kieBuilder.getResults();
+            if (results.hasMessages(Message.Level.ERROR)) {
+                //System.out.println(results.getMessages());
+                throw new IllegalStateException("### errors ###");
+            }
+            KieContainer kieContainer =
+                    kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+            KieBase kieBase = kieContainer.getKieBase();
+            KieSession kieSession = kieBase.newKieSession();
 
-        //System.out.println("PRAVAC---------------\n");
-        //System.out.println(pravac);
 
+            FactHandle th = kieSession.insert(core);
+            FactHandle pit = kieSession.insert(pravac);
+            kieSession.fireAllRules();
 
-        List<String> pravci = new ArrayList<>();
-        pravci.add("Glavna");
-        pravci.add("Ritam");
-        pravci.add("Bas");
+            kieSession.delete(th);
+            kieSession.delete(pit);
+        }catch (Exception ignored){}
 
-        FactHandle th = session.insert(core);
-        FactHandle pit = session.insert(pravac);
-        FactHandle pt = session.insert(new Lista(pravci));
-        session.fireAllRules();
-
-        session.delete(th);
-        session.delete(pit);
-        session.delete(pt);
+        //System.out.println("Vraca: " + core.toString());
 
         return core.toString();
     }
@@ -98,32 +150,41 @@ public class Controller {
         String zvuk = coreSTR.split("\\|\\|")[0];
         coreSTR = coreSTR.split("\\|\\|")[1];
 
-        //System.out.println("TEHNIKE STR--------------\n");
-        //System.out.println(coreSTR);
-
+        coreSTR = Normalisi(coreSTR);
         Core core = new Core(coreSTR);
 
-        //System.out.println("TEHNIKA STR--------------\n");
-        //System.out.println(core.toString());
+        try {//nece puci, ali FileInputStream trazi da budde u try-u
+            KieServices kieServices = KieServices.Factory.get();
+            KieFileSystem kfs = kieServices.newKieFileSystem();
+            FileInputStream fis = new FileInputStream("src/main/resources/pravac.drl");
+            kfs.write("src/main/resources/pravac.drl",
+                    kieServices.getResources().newInputStreamResource(fis));
+            KieBuilder kieBuilder = kieServices.newKieBuilder(kfs).buildAll();
+            Results results = kieBuilder.getResults();
+            if (results.hasMessages(Message.Level.ERROR)) {
+                //System.out.println(results.getMessages());
+                throw new IllegalStateException("### errors ###");
+            }
+            KieContainer kieContainer =
+                    kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+            KieBase kieBase = kieContainer.getKieBase();
+            KieSession kieSession = kieBase.newKieSession();
 
-        //System.out.println("ZVUK---------------\n");
-        //System.out.println(zvuk);
 
-        List<String> zvukovi = new ArrayList<>();
-        zvukovi.add("Rock");
-        zvukovi.add("Dzez");
-        zvukovi.add("Blues");
-        zvukovi.add("Narodna");
-        zvukovi.add("Country");
+            FactHandle th = kieSession.insert(core);
+            FactHandle pit = kieSession.insert(zvuk);
+            kieSession.fireAllRules();
 
-        FactHandle th = session.insert(core);
+            kieSession.delete(th);
+            kieSession.delete(pit);
+        }catch (Exception ignored){}
+
+        /*FactHandle th = session.insert(core);
         FactHandle pit = session.insert(zvuk);
-        FactHandle zvt = session.insert(new Lista(zvukovi));
         session.fireAllRules();
 
         session.delete(th);
-        session.delete(pit);
-        session.delete(zvt);
+        session.delete(pit);*/
 
         return core.toString();
     }
@@ -133,22 +194,7 @@ public class Controller {
         Raspored raspored = new Raspored(coreIrasporedSTR.split("\\[_]")[0]);
         Core core = new Core(coreIrasporedSTR.split("\\[_]")[1]);
 
-        if (raspored.getBrTehnika() > 3){
-            raspored.setBrTehnika(3);
-        }
-
-        if (raspored.getBrTehnika() < 2){
-            raspored.setBrTehnika(2);
-        }
-
-        for (int i = 0 ; i < raspored.getBrTehnika() ; ++i)
-            raspored.addZadatak(i, "Zadatak" + (i+1));
-
-        //System.out.println("CORE STR--------------\n");
-        //System.out.println(core.toString());
-
-        //System.out.println("RASPORED STR--------------\n");
-        //System.out.println(raspored.toString());
+        raspored = new Raspored(raspored.getBrTehnika());
 
         FactHandle rpt = session.insert(raspored);
         FactHandle cot = session.insert(core);
@@ -159,7 +205,78 @@ public class Controller {
         session.delete(cot);
         session.delete(sta);
 
+
+        try {
+            if(core.getStara() != -1) {
+                KieServices kieServices = KieServices.Factory.get();
+                KieFileSystem kfs = kieServices.newKieFileSystem();
+                FileInputStream fis = new FileInputStream("src/main/resources/legacy.drl");
+                kfs.write("src/main/resources/legacy.drl",
+                        kieServices.getResources().newInputStreamResource(fis));
+                KieBuilder kieBuilder = kieServices.newKieBuilder(kfs).buildAll();
+                Results results = kieBuilder.getResults();
+                if (results.hasMessages(Message.Level.ERROR)) {
+                    //System.out.println(results.getMessages());
+                    throw new IllegalStateException("### errors ###");
+                }
+                KieContainer kieContainer =
+                        kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+                KieBase kieBase = kieContainer.getKieBase();
+                KieSession kieSession = kieBase.newKieSession();
+
+
+                FactHandle th2 = kieSession.insert(core);
+                FactHandle mint2 = kieSession.insert(raspored);
+                FactHandle tt = kieSession.insert(core.getTehnikaId(core.getStara()));
+                kieSession.fireAllRules();
+
+                kieSession.delete(th2);
+                kieSession.delete(mint2);
+                kieSession.delete(tt);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        raspored.addZadatak(0, raspored.getZadatak(0).replace("Zadatak1", " "));
+        raspored.addZadatak(1, raspored.getZadatak(1).replace("Zadatak2", " "));
+        raspored.addZadatak(2, raspored.getZadatak(2).replace("Zadatak3", " "));
+
         return raspored.toString();
+    }
+
+    @PostMapping(value="/Normalisi", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String Normalisi(@RequestBody String coreSTR){
+        Core core = new Core(coreSTR);
+
+        try {
+            KieServices kieServices = KieServices.Factory.get();
+            KieFileSystem kfs = kieServices.newKieFileSystem();
+            FileInputStream fis = new FileInputStream("src/main/resources/raspored.drl");
+            kfs.write("src/main/resources/raspored.drl",
+                    kieServices.getResources().newInputStreamResource(fis));
+            KieBuilder kieBuilder = kieServices.newKieBuilder(kfs).buildAll();
+            Results results = kieBuilder.getResults();
+            if (results.hasMessages(Message.Level.ERROR)) {
+                throw new IllegalStateException("### errors ###");
+            }
+            KieContainer kieContainer =
+                    kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+            KieBase kieBase = kieContainer.getKieBase();
+            KieSession kieSession = kieBase.newKieSession();
+
+
+            FactHandle th2 = kieSession.insert(core);
+            kieSession.fireAllRules();
+
+            kieSession.delete(th2);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return core.toString();
     }
 
     @PostMapping(value="/CustomTehnika", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -179,15 +296,6 @@ public class Controller {
                 rr.add("Zadatak" + (i + 1));
                 raspored.setZadaci(rr);
             }
-
-        //System.out.println("ODABRANA TEHNIKA STR--------------\n");
-        //System.out.println(tehnikaSTR);
-
-        //System.out.println("CORE STR--------------\n");
-        //System.out.println(core.toString());
-
-        //System.out.println("RASPORED STR--------------\n");
-        //System.out.println(raspored.toString());
 
         String tip = "Custom";
         int id = -1;
@@ -210,6 +318,39 @@ public class Controller {
         session.delete(rpt);
         session.delete(cot);
 
-        return raspored.toString();
+        try {
+            if(core.getStara() != -1) {
+                KieServices kieServices = KieServices.Factory.get();
+                KieFileSystem kfs = kieServices.newKieFileSystem();
+                FileInputStream fis = new FileInputStream("src/main/resources/legacy.drl");
+                kfs.write("src/main/resources/legacy.drl",
+                        kieServices.getResources().newInputStreamResource(fis));
+                KieBuilder kieBuilder = kieServices.newKieBuilder(kfs).buildAll();
+                Results results = kieBuilder.getResults();
+                if (results.hasMessages(Message.Level.ERROR)) {
+                    //System.out.println(results.getMessages());
+                    throw new IllegalStateException("### errors ###");
+                }
+                KieContainer kieContainer =
+                        kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+                KieBase kieBase = kieContainer.getKieBase();
+                KieSession kieSession = kieBase.newKieSession();
+
+
+                FactHandle th2 = kieSession.insert(core);
+                FactHandle mint2 = kieSession.insert(raspored);
+                FactHandle tt = kieSession.insert(core.getTehnikaId(core.getStara()));
+                kieSession.fireAllRules();
+
+                kieSession.delete(th2);
+                kieSession.delete(mint2);
+                kieSession.delete(tt);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return core.toString();
     }
 }

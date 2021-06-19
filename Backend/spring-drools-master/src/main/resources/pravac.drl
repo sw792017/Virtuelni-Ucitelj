@@ -1,32 +1,109 @@
 package KieRule
+import com.javatechie.spring.drools.api.Core;
 import com.javatechie.spring.drools.api.Tehnika;
 import com.javatechie.spring.drools.api.PodTehnika;
 import com.javatechie.spring.drools.api.Raspored;
+import com.javatechie.spring.drools.api.Lista
+import java.util.Date;
 
 
 
-//declare any global variables here
-
-
-
-
-rule "Rock" 
-	//salience ()
+rule "GlavnaPravac"
     when
-        $t: Tehnika($naziv: naziv, $podtehnike: podtehnike)
-        $p: pravac
-        Number($value: intValue >= 4) from accumulate(
-        	Simptom($t:this, this memberOf $simptomi) from $zalbe,
-        	count($t)
-        )
-        not (
-        	Bolest(naziv == "Sinusna infekcija") from $b and 
-            not Dijagnoza($d: datum, $d.isAfter(LocalDate.now().minusDays(60)), bolest.getNaziv() == "Prehlada" ||  bolest.getNaziv() == "Groznica") from $karton            	
+        $core: Core($tehnike: tehnike)
+        $pravac: String($pravac == "Glavna")
+        $a: Number($value: intValue == $tehnike.size()) from accumulate(
+            Tehnika($t:this, prioritet == 0) from $tehnike,
+            count($t)
         )
     then
-    	System.out.println("Bolest: " + $naziv);
-    	System.out.println("Broj simptoma: " + $value + "/" + $simptomi.size());
-    	modify($p) { setTrenutnaBolest($b) }
+        $core.setPravacZvuk("0, 0, 50, 70, 65");
+end
+
+rule "RitamPravac"
+    when
+        $core: Core($tehnike: tehnike)
+        $pravac: String($pravac == "Ritam")
+        $a: Number($value: intValue == $tehnike.size()) from accumulate(
+            Tehnika($t:this, prioritet == 0) from $tehnike,
+            count($t)
+        )
+    then
+        $core.setPravacZvuk("0, 0, 70, 50, 20");
+end
+
+rule "BasPravac"
+    when
+        $core: Core($tehnike: tehnike)
+        $pravac: String($pravac == "Bas")
+        $a: Number($value: intValue == $tehnike.size()) from accumulate(
+            Tehnika($t:this, prioritet == 0) from $tehnike,
+            count($t)
+        )
+    then
+        $core.setPravacZvuk("0, 0, 90, 0, 0");
 end
 
 
+////////////////////////////////////////////////////////////////
+
+
+rule "RockZvuk"
+    when
+        $core: Core($tehnike: tehnike)
+        $pravac: String($pravac == "Rock")
+        $a: Number($value: intValue == $tehnike.size()) from accumulate(
+            Tehnika($t:this, prioritet == 0) from $tehnike,
+            count($t)
+        )
+    then
+        $core.setPravacZvuk("0, 0, 60, 80, 50");
+end
+
+rule "DzezZvuk"
+    when
+        $core: Core($tehnike: tehnike)
+        $pravac: String($pravac == "Dzez")
+        $a: Number($value: intValue == $tehnike.size()) from accumulate(
+            Tehnika($t:this, prioritet == 0) from $tehnike,
+            count($t)
+        )
+    then
+        $core.setPravacZvuk("0, 0, 50, 10, 60");
+end
+
+rule "BluesZvuk"
+    when
+        $core: Core($tehnike: tehnike)
+        $pravac: String($pravac == "Blues")
+        $a: Number($value: intValue == $tehnike.size()) from accumulate(
+            Tehnika($t:this, prioritet == 0) from $tehnike,
+            count($t)
+        )
+    then
+        $core.setPravacZvuk("0, 0, 10, 50, 60");
+end
+
+rule "NarodnaZvuk"
+    when
+        $core: Core($tehnike: tehnike)
+        $pravac: String($pravac == "Narodna")
+        $a: Number($value: intValue == $tehnike.size()) from accumulate(
+            Tehnika($t:this, prioritet == 0) from $tehnike,
+            count($t)
+        )
+    then
+        $core.setPravacZvuk("0, 0, 10, 0, 20");
+end
+
+rule "CountryZvuk"
+    when
+        $core: Core($tehnike: tehnike)
+        $pravac: String($pravac == "Country")
+        $a: Number($value: intValue == $tehnike.size()) from accumulate(
+            Tehnika($t:this, prioritet == 0) from $tehnike,
+            count($t)
+        )
+    then
+        $core.setPravacZvuk("0, 0, 20, 0, 10");
+end

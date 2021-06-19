@@ -1,8 +1,17 @@
+package KieRule
+import com.javatechie.spring.drools.api.Core;
+import com.javatechie.spring.drools.api.Tehnika;
+import com.javatechie.spring.drools.api.PodTehnika;
+import com.javatechie.spring.drools.api.Raspored;
+import com.javatechie.spring.drools.api.Lista
+import java.util.Date;
 
-dialect  "mvel"
 
-rule "raspored"
+rule "PrioritetZa100Savladano"
     when
+        $core: Core()
+        $tehnika: Tehnika( savladansot >= 100 && prioritet != 0 ) from $core.getTehnike()
     then
+        System.out.println("$core.zavrsi($tehnika)" + $tehnika.toString());
+        $core.zavrsi($tehnika);
 end
-

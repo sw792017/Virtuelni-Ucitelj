@@ -16,6 +16,11 @@ public class Raspored {
 	public Raspored(int brTehnika) {
 		this.brTehnika = brTehnika;
 		this.zadaci = new ArrayList<String>();
+		for(int i = 0 ; i < brTehnika ; ++i){
+			zadaci.add("Zadatak" + (i+1));
+		}
+		while(zadaci.size() != 5)
+			zadaci.add(" ");
 	}
 
 	public Raspored(String str) {

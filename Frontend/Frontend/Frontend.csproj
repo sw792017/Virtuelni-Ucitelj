@@ -59,6 +59,12 @@
       <DependentUpon>minut.cs</DependentUpon>
     </Compile>
     <Compile Include="PodTehnika.cs" />
+    <Compile Include="PravacZvuk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PravacZvuk.Designer.cs">
+      <DependentUpon>PravacZvuk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Raspored.cs" />
@@ -68,6 +74,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="minut.resx">
       <DependentUpon>minut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PravacZvuk.resx">
+      <DependentUpon>PravacZvuk.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

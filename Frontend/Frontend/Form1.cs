@@ -16,6 +16,9 @@ namespace Frontend
     {
         Raspored raspored;
         List<Tehnika> tehnike;
+        string pravac = "";
+        string zvuk = "";
+        bool kraj = false;
         string url = "http://localhost:8080";
 
         System.Media.SoundPlayer tick = new System.Media.SoundPlayer("clock.wav");
@@ -36,6 +39,7 @@ namespace Frontend
             NoviRaspored();
             NapuniDropDown();
             RefreshGUIRaspored();
+            comboBox1.SelectedIndex = 0;
         }
 
         private void Ofarbaj()
@@ -388,6 +392,8 @@ namespace Frontend
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (kraj)
+                return;
             List<Tuple<int, string>> lista = new List<Tuple<int, string>>();
 
             for (int i = 0; i < 5; ++i)
@@ -404,20 +410,38 @@ namespace Frontend
 
             //15||Test Tehnika|60|03/06/2021|pt1@50@100%pt2@50@100%pt3@50@50%pt4@50@0%pt5@50@0
             //br min   ||   tehnika.STR
-            try
+            if(true)//try
             {
                 List<Tehnika> tt2 = new List<Tehnika>();
                 
 
                 for(int i = 0; i < raspored.getBrTehnika(); ++i){
                     string tehnika = POST("/get/" + i.ToString(), Tehnika.TehnikeSTR(tehnike));
-                    if (tehnika == "" || tehnika == " ")
-                    {
-                        MessageBox.Show(Tehnika.TehnikeSTR(tehnike), url + "/get/" + i.ToString());
-                        break;
+                    if (tehnika != "" && tehnika != " ") {
+                        string noviRaspored = "";
+                        try
+                        {
+                            noviRaspored = POST("/Presao", (lista[i]).Item1 + "||" + tehnika);
+                            update(new Tehnika(noviRaspored));
+                        }
+                        catch(Exception e0){}
                     }
-                    string noviRaspored = POST("/Presao", (lista[i]).Item1 + "||" + tehnika);
-                    update(tehnike, new Tehnika(noviRaspored));
+                }
+
+                for (int i = 3; i < 5; ++i)
+                {
+                    if (raspored.getZadatak(i) != "" && raspored.getZadatak(i) != " ") {
+                        string tehnika = POST("/getCC/" + raspored.getZadatak(i), Tehnika.TehnikeSTR(tehnike));
+                        if (tehnika != "" && tehnika != " ")
+                        {
+                            if(true)//try
+                            {
+                                string noviRaspored = POST("/Presao", (lista[i]).Item1 + "||" + tehnika);
+                                update(new Tehnika(noviRaspored));
+                            }
+                            //catch (Exception e23) { }
+                        }
+                    }
                 }
 
                 ////// za kasnije
@@ -427,19 +451,46 @@ namespace Frontend
                     NoviRaspored();
                     string ulaz = (comboBox1.SelectedIndex) + "[_]" + (new Raspored(raspored.getBrTehnika())).toString() + "[_]" + Tehnika.TehnikeSTR(tehnike);
                     if (!(ulaz == "" || ulaz == " "))
-                        raspored = new Raspored(POST("/CustomTehnika", ulaz));
-                    MessageBox.Show(raspored.toString());
+                        tehnike = new List<Tehnika>(Tehnika.TehnikeIzSTR(POST("/CustomTehnika", ulaz)));
                 }
-                else {
+                comboBox1.Visible = false;
+                comboBox1.Enabled = false;
+                tehnike = new List<Tehnika>(Tehnika.TehnikeIzSTR(POST("/Normalisi", Tehnika.TehnikeSTR(tehnike))));
+                NoviRaspored();
+
+                if(raspored.toString().Replace('@',' ').Replace('|', ' ').Trim().Length <= 2 && pravac == "" && zvuk == "")
+                {
+                    //MessageBox.Show("Deo za Odavir Tehnike");
+                    PravacZvuk();
                     NoviRaspored();
+                }
+                else if (raspored.toString().Replace('@', ' ').Replace('|', ' ').Trim().Length <= 2)
+                {
+                    kraj = true;
+                    button2.Enabled = false;
+                    dodajVezbu.Enabled = false;
+                    MessageBox.Show("Cestitamo!\nUspesno ste zavrsili sve zadatke sa kursa.", "Cestitamo");
                 }
 
                 RefreshGUIRaspored();
             }
-            catch (Exception exception) { MessageBox.Show("Konekcija sa serverom nije uspela"); Console.Write(exception.Message); }
+            //catch (Exception exception) { MessageBox.Show("Konekcija sa serverom nije uspela"); Console.Write(exception.Message); }
         }
 
-        private void update(List<Tehnika> tehnike, Tehnika tehnika)
+        private void PravacZvuk()
+        {
+            /*Glavna||tehnike*/
+            PravacZvuk pz = new PravacZvuk();
+            pz.ShowDialog();
+            pravac = pz.GetPravac();
+            zvuk = pz.GetZvuk();
+            tehnike = Tehnika.TehnikeIzSTR(POST("/OdaberiPravac", pz.GetPravac() + "||" + Tehnika.TehnikeSTR(tehnike)));
+            tehnike = Tehnika.TehnikeIzSTR(POST("/OdaberiZvuk", pz.GetZvuk() + "||" + Tehnika.TehnikeSTR(tehnike)));
+
+            debug.Text = Tehnika.TehnikeSTR(tehnike);
+        }
+
+        private void update(Tehnika tehnika)
         {
             if (tehnika.getNaziv() == "placeholder")
                 return;

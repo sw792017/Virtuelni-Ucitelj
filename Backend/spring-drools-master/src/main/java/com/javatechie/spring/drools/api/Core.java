@@ -1,5 +1,7 @@
 package com.javatechie.spring.drools.api;
 
+import org.apache.poi.ss.formula.functions.T;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -17,10 +19,9 @@ public class Core {
 
         for(String str : tehnike.split("@@@")){
             try {
-                //System.out.println(str);
                 this.tehnike.add(new Tehnika(str));
             }catch (Exception e){
-                //System.out.println(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -33,30 +34,17 @@ public class Core {
         this.tehnike = tehnike;
     }
 
-    /*public Tehnika getTehnika(int br){
-        List<Tehnika> lista = this.getTehnike();
-        Tehnika temp;
-        for(int i = 0; i<lista.size(); i++ ) {
-            for (int j = i + 1; j < lista.size(); j++) {
-                if(lista.get(i).getPrioritet()>lista.get(j).getPrioritet()){
-                    Collections.swap(lista, i, j);
-                }
-
-            }
-        }
-        return lista.get(br);
-    }*/
-
     public Tehnika getTehnika(int br) throws Exception {
+        ++br;
         Tehnika tehnika = tehnike.get(0);
         List<Tehnika> lista = this.getTehnike();
         List<String> drugi = new ArrayList<>();
         int tren;
         for(int i = 0 ; i < br ; ++i) {
             tren = 0;
+            tehnika = new Tehnika("placeholder", new ArrayList<PodTehnika>(), -1, new Date());
             for (Tehnika t : lista) {
-                tehnika = new Tehnika("placeholder", new ArrayList<PodTehnika>(), -1, new Date());
-                if (tehnika.getPrioritet() < t.getPrioritet() && !drugi.contains(t.getNaziv())) {
+                if (tehnika.getPrioritet() < t.getPrioritet() && !drugi.contains(t.getNaziv()) && t.getSavladansot() < 100 && t.getPrioritet() > 0) {
                     tehnika = t;
                 }
                 ++tren;
@@ -67,18 +55,12 @@ public class Core {
         if(!tehnika.getNaziv().equals("placeholder"))
             return tehnika;
         else {
+            System.out.println("get tehnika-------------------------------------------------");
+            System.out.println(drugi.toString());
+            System.out.println("Broj " + br + " u ---" + lista.toString());
+            System.out.println("-----------------------------------------------------------");
             throw new Exception("vraca placeholder");
         }
-
-        /*for(int i = 0; i<lista.size(); i++ ) {
-            for (int j = i + 1; j < lista.size(); j++) {
-                if(lista.get(i).getPrioritet()>lista.get(j).getPrioritet()){
-                    Collections.swap(lista, i, j);
-                }
-
-            }
-        }
-        return lista.get(br);*/
     }
 
     public double getSavladanost(int br){
@@ -90,24 +72,34 @@ public class Core {
         }
     }
 
-    public String getZadatak(int br){
-        List<Tehnika> lista = this.getTehnike();
-        Tehnika temp;
-        for(int i = 0; i<lista.size(); i++ ) {
-            for (int j = i + 1; j < lista.size(); j++) {
-                if(lista.get(i).getPrioritet()>lista.get(j).getPrioritet()){
-                    Collections.swap(lista, i, j);
-                }
-
-            }
+    public double getSavladanostId(int br){
+        //System.out.println(getTehnika(br).getPodtehnika().getSavadao());
+        try {
+            return getTehnikaId(br).getPodtehnika().getSavadao();
+        }catch (Exception e){
+            return -1;
         }
-
-        Collections.reverse(lista);
-
-        return lista.get(br).getPodtehnika().getNaziv();
     }
 
-    public void setPravac(String pravacStr) {
+    public String getZadatak(int br) throws Exception {
+        try {
+            return getTehnika(br).getPodtehnika().getNaziv();
+        }catch (Exception e){
+            return "";
+        }
+    }
+
+    public void setPravacZvuk(String pravacStr) {
+        String[] pravac = pravacStr.split(", ");
+        for (int i = 0 ; i < tehnike.size() ; ++i) {
+            if(tehnike.get(i).getSavladansot() < 100) {
+                double snaga = Double.parseDouble(pravac[i]);
+                this.tehnike.get(i).setPrioritet(snaga + (100 - snaga) * (this.tehnike.get(i).getPrioritet() / 100));
+            }
+        }
+    }
+
+    /*public void setPravac(String pravacStr) {
         int pravac = 0;
         double ucitano=0;
 
@@ -157,9 +149,9 @@ public class Core {
                 File myObj = new File("Pravci.txt");
                 myObj.createNewFile();
                 FileWriter myWriter = new FileWriter(myObj);
-                myWriter.write("25, 40, 40, 50, 60, 55, 70, 50, 40\n" +
-                                   "60, 65, 20, 40, 50, 80, 60, 20, 50\n" +
-                                   "95, 80, 40, 10, 80, 90, 90, 40, 90\n");
+                myWriter.write("0, 0, 50, 70, 65\n" +
+                        "0, 0, 70, 50, 20\n" +
+                        "0, 0, 90, 0, 0\n");
                 myWriter.close();
                 setPravac(pravacStr);
             } catch (Exception ee) {
@@ -168,77 +160,11 @@ public class Core {
         }catch (Exception e){
             //System.out.println(e.getMessage());
         }
-    }
+    }*/
 
     public void setZvuk(String zvukStr) {
-        int zvuk = 0;
-        double ucitano=0;
 
-        switch (zvukStr) {
-            case "Rock":
-                zvuk = 1;
-                break;
-            case "Dzez":
-                zvuk = 2;
-                break;
-            case "Blues":
-                zvuk = 3;
-                break;
-            case "Narodna":
-                zvuk = 4;
-                break;
-            case "Country":
-                zvuk = 5;
-                break;
-            default:
-                //System.out.println("Zvuk ne postoji");
-                return;
-        }
-        try {
-            File myObj = new File("Zvuci.txt");
-            Scanner myReader = new Scanner(myObj);
-            int i = 1;
 
-            while (myReader.hasNextLine()) {
-                if(i == zvuk) {
-                    String data = myReader.nextLine();
-                    //System.out.println(data);
-
-                    int iterator = 0;
-
-                    for (String ss : data.split(", ")) {
-                        ucitano = Double.parseDouble(ss);
-                        this.tehnike.get(iterator).setPrioritet(ucitano + (100 - ucitano) * (this.tehnike.get(iterator).getPrioritet() / 100));
-                        ++iterator;
-                    }
-                    break;
-
-                }
-                else {
-                    ++i;
-                    myReader.nextLine();
-                }
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            try {
-                //System.out.println("Fajl je ostecen....\nPravljenje novog");
-                File myObj = new File("Zvuci.txt");
-                myObj.createNewFile();
-                FileWriter myWriter = new FileWriter(myObj);
-                myWriter.write("20, 20, 40, 0, 0, 0, 0, 0, 40\n" +
-                        "60, 65, 0, 0, 50, 80, 0, 20, 10\n" +
-                        "35, 80, 0, 10, 0, 0, 0, 0, 10\n" +
-                        "55, 20, 70, 0, 0, 60, 0, 85, 5\n" +
-                        "50, 40, 40, 0, 0, 0, 20, 0, 30\n");
-                myWriter.close();
-                setPravac(zvukStr);
-            } catch (Exception ee) {
-                //System.out.println("Nemate dozvolu da napravite fajl");
-            }
-        }catch (Exception e){
-            //System.out.println(e.getMessage());
-        }
     }
 
     @Override
@@ -254,9 +180,31 @@ public class Core {
         for (int i = 0 ; i < this.getTehnike().size() ; ++i){
             //System.out.println("UNIX " + ((new Date()).getTime() - this.getTehnike().get(i).getPresao().getTime()));
             if(((new Date()).getTime() - this.getTehnike().get(i).getPresao().getTime()) >= (2678400000L)){
+                System.out.println("getStara()  Vraca " + i + " sa razlikom od " + ((new Date()).getTime() - this.getTehnike().get(i).getPresao().getTime()));
                 return i;
             }
         }
         return -1;
+    }
+
+    public Tehnika getTehnikaId(int id){
+        return this.getTehnike().get(id);
+    }
+
+    public String getZadatakId(int br) {
+        return this.getTehnike().get(br).getPodtehnika().getNaziv();
+    }
+
+    public void zavrsi(Tehnika tt) throws Exception {
+        for(int i = 0 ; i < this.tehnike.size() ; ++i){
+            System.out.println(tehnike.get(i).getNaziv() + " =?= " + tt.getNaziv());
+            if (this.tehnike.get(i).getNaziv().equals(tt.getNaziv())){
+                System.out.println("#######$" + tehnike.get(i).getNaziv() + " =?= " + tt.getNaziv());
+                tt.setPrioritet(0);
+                this.tehnike.set(i, new Tehnika(tt.toString()));
+                System.out.println(this.toString());
+                break;
+            }
+        }
     }
 }

@@ -1,0 +1,20 @@
+package KieRule
+import com.javatechie.spring.drools.api.Core;
+import com.javatechie.spring.drools.api.Tehnika;
+import com.javatechie.spring.drools.api.PodTehnika;
+import com.javatechie.spring.drools.api.Raspored;
+import com.javatechie.spring.drools.api.Lista
+import java.util.Date;
+
+
+
+rule "Legacy"
+    when
+        $core: Core($core.getStara() != -1)
+        $tt: Tehnika($tt.getSavladansot() >= 100)
+        $raspored: Raspored()
+    then
+        System.out.println("--Legacy--------------");
+        System.out.println("Upisujem \"Ponovi " + $core.getTehnikaId($core.getStara()).getNaziv() + "\"");
+        $raspored.addZadatak(4, "Ponovi " + $core.getTehnikaId($core.getStara()).getNaziv());
+end

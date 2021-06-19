@@ -96,6 +96,7 @@
             // 
             this.LAB_PON.AutoSize = true;
             this.LAB_PON.Location = new System.Drawing.Point(21, 21);
+            this.LAB_PON.MaximumSize = new System.Drawing.Size(100, 0);
             this.LAB_PON.Name = "LAB_PON";
             this.LAB_PON.Size = new System.Drawing.Size(41, 13);
             this.LAB_PON.TabIndex = 0;
@@ -113,6 +114,7 @@
             // 
             this.LAB_UTO.AutoSize = true;
             this.LAB_UTO.Location = new System.Drawing.Point(20, 21);
+            this.LAB_UTO.MaximumSize = new System.Drawing.Size(100, 0);
             this.LAB_UTO.Name = "LAB_UTO";
             this.LAB_UTO.Size = new System.Drawing.Size(41, 13);
             this.LAB_UTO.TabIndex = 1;
@@ -130,6 +132,7 @@
             // 
             this.LAB_SRE.AutoSize = true;
             this.LAB_SRE.Location = new System.Drawing.Point(16, 21);
+            this.LAB_SRE.MaximumSize = new System.Drawing.Size(100, 0);
             this.LAB_SRE.Name = "LAB_SRE";
             this.LAB_SRE.Size = new System.Drawing.Size(41, 13);
             this.LAB_SRE.TabIndex = 0;
@@ -147,6 +150,7 @@
             // 
             this.LAB_CET.AutoSize = true;
             this.LAB_CET.Location = new System.Drawing.Point(17, 23);
+            this.LAB_CET.MaximumSize = new System.Drawing.Size(100, 0);
             this.LAB_CET.Name = "LAB_CET";
             this.LAB_CET.Size = new System.Drawing.Size(41, 13);
             this.LAB_CET.TabIndex = 2;
@@ -164,6 +168,7 @@
             // 
             this.LAB_PET.AutoSize = true;
             this.LAB_PET.Location = new System.Drawing.Point(18, 21);
+            this.LAB_PET.MaximumSize = new System.Drawing.Size(100, 0);
             this.LAB_PET.Name = "LAB_PET";
             this.LAB_PET.Size = new System.Drawing.Size(41, 13);
             this.LAB_PET.TabIndex = 1;

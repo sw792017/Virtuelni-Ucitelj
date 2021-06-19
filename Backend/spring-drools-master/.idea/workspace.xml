@@ -69,6 +69,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.SpringDroolsApplication">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DroolsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-drools" />
       <extension name="coverage">
@@ -84,7 +97,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DroolsTest.PravacTest_Bas" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DroolsTest.LegacyZadatak" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-drools" />
       <extension name="coverage">
         <pattern>
@@ -94,13 +107,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
       <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
-      <option name="METHOD_NAME" value="PravacTest_Bas" />
+      <option name="METHOD_NAME" value="LegacyZadatak" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DroolsTest.PresaoTest_TehnikePreko100" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DroolsTest.OdaberiPravac_________" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-drools" />
       <extension name="coverage">
         <pattern>
@@ -110,13 +123,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
       <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
-      <option name="METHOD_NAME" value="PresaoTest_TehnikePreko100" />
+      <option name="METHOD_NAME" value="OdaberiPravac_________" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DroolsTest.RasporedTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DroolsTest.RasporedTest_DvaTestaSaIstimPrioritetomNaIvici" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-drools" />
       <extension name="coverage">
         <pattern>
@@ -126,13 +139,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
       <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
-      <option name="METHOD_NAME" value="RasporedTest" />
+      <option name="METHOD_NAME" value="RasporedTest_DvaTestaSaIstimPrioritetomNaIvici" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DroolsTest.RasporedTest_LegacyZadatak" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DroolsTest.RasporedZavrsenPrioritetViseOdNulaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-drools" />
       <extension name="coverage">
         <pattern>
@@ -142,7 +155,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.javatechie.spring.drools.api" />
       <option name="MAIN_CLASS_NAME" value="com.javatechie.spring.drools.api.DroolsTest" />
-      <option name="METHOD_NAME" value="RasporedTest_LegacyZadatak" />
+      <option name="METHOD_NAME" value="RasporedZavrsenPrioritetViseOdNulaTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -158,10 +171,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.DroolsTest" />
-        <item itemvalue="JUnit.DroolsTest.RasporedTest_LegacyZadatak" />
-        <item itemvalue="JUnit.DroolsTest.PresaoTest_TehnikePreko100" />
-        <item itemvalue="JUnit.DroolsTest.RasporedTest" />
-        <item itemvalue="JUnit.DroolsTest.PravacTest_Bas" />
+        <item itemvalue="JUnit.DroolsTest.OdaberiPravac_________" />
+        <item itemvalue="JUnit.DroolsTest.RasporedZavrsenPrioritetViseOdNulaTest" />
+        <item itemvalue="JUnit.DroolsTest.RasporedTest_DvaTestaSaIstimPrioritetomNaIvici" />
+        <item itemvalue="JUnit.DroolsTest.LegacyZadatak" />
       </list>
     </recent_temporary>
   </component>
@@ -188,7 +201,13 @@
       <workItem from="1623387944957" duration="9716000" />
       <workItem from="1623479144045" duration="2513000" />
       <workItem from="1623558306235" duration="11479000" />
-      <workItem from="1623647044649" duration="3638000" />
+      <workItem from="1623647044649" duration="5060000" />
+      <workItem from="1623682842696" duration="4507000" />
+      <workItem from="1623732435679" duration="18380000" />
+      <workItem from="1623822210276" duration="13356000" />
+      <workItem from="1623927101804" duration="6263000" />
+      <workItem from="1623994434179" duration="4731000" />
+      <workItem from="1624034194955" duration="15199000" />
     </task>
     <servers />
   </component>
@@ -208,10 +227,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1622560794407">
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1624078896017">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622560794407" />
+    <state x="92" y="92" width="1736" height="856" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624078896017" />
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1622174682500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -220,66 +239,66 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1622470673241" />
-    <state width="1877" height="291" key="GridCell.Tab.0.bottom" timestamp="1623671298881">
+    <state width="1877" height="256" key="GridCell.Tab.0.bottom" timestamp="1624080104693">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="291" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623671298881" />
-    <state width="1877" height="291" key="GridCell.Tab.0.center" timestamp="1623671298881">
+    <state width="1877" height="256" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1624078656322" />
+    <state width="1877" height="256" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624080104693" />
+    <state width="1877" height="256" key="GridCell.Tab.0.center" timestamp="1624080104692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="291" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623671298881" />
-    <state width="1877" height="291" key="GridCell.Tab.0.left" timestamp="1623671298881">
+    <state width="1877" height="256" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1624078656322" />
+    <state width="1877" height="256" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624080104692" />
+    <state width="1877" height="256" key="GridCell.Tab.0.left" timestamp="1624080104692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="291" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623671298881" />
-    <state width="1877" height="291" key="GridCell.Tab.0.right" timestamp="1623671298881">
+    <state width="1877" height="256" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1624078656322" />
+    <state width="1877" height="256" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624080104692" />
+    <state width="1877" height="256" key="GridCell.Tab.0.right" timestamp="1624080104692">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="291" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623671298881" />
-    <state width="1877" height="291" key="GridCell.Tab.1.bottom" timestamp="1623671298881">
+    <state width="1877" height="256" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1624078656322" />
+    <state width="1877" height="256" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624080104692" />
+    <state width="1877" height="256" key="GridCell.Tab.1.bottom" timestamp="1624078830021">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="291" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623671298881" />
-    <state width="1877" height="291" key="GridCell.Tab.1.center" timestamp="1623671298881">
+    <state width="1877" height="256" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1624078656323" />
+    <state width="1877" height="256" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624078830021" />
+    <state width="1877" height="256" key="GridCell.Tab.1.center" timestamp="1624078830021">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="291" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623671298881" />
-    <state width="1877" height="291" key="GridCell.Tab.1.left" timestamp="1623671298881">
+    <state width="1877" height="256" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1624078656323" />
+    <state width="1877" height="256" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624078830021" />
+    <state width="1877" height="256" key="GridCell.Tab.1.left" timestamp="1624078830021">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="291" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623671298881" />
-    <state width="1877" height="291" key="GridCell.Tab.1.right" timestamp="1623671298881">
+    <state width="1877" height="256" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1624078656322" />
+    <state width="1877" height="256" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624078830021" />
+    <state width="1877" height="256" key="GridCell.Tab.1.right" timestamp="1624078830021">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="291" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623671298881" />
-    <state width="1877" height="348" key="GridCell.Tab.2.bottom" timestamp="1623609083435">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="256" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1624078656323" />
+    <state width="1877" height="256" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1624078830021" />
+    <state width="1877" height="233" key="GridCell.Tab.2.bottom" timestamp="1623861961562">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.2.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083435" />
-    <state width="1877" height="348" key="GridCell.Tab.2.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623595914688" />
-    <state width="1877" height="348" key="GridCell.Tab.2.center" timestamp="1623609083435">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="233" key="GridCell.Tab.2.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623861961562" />
+    <state width="1877" height="233" key="GridCell.Tab.2.center" timestamp="1623861961562">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.2.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083435" />
-    <state width="1877" height="348" key="GridCell.Tab.2.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623595914687" />
-    <state width="1877" height="348" key="GridCell.Tab.2.left" timestamp="1623609083434">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="233" key="GridCell.Tab.2.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623861961562" />
+    <state width="1877" height="233" key="GridCell.Tab.2.left" timestamp="1623861961562">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.2.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083434" />
-    <state width="1877" height="348" key="GridCell.Tab.2.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623595914687" />
-    <state width="1877" height="348" key="GridCell.Tab.2.right" timestamp="1623609083435">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="1877" height="233" key="GridCell.Tab.2.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623861961562" />
+    <state width="1877" height="233" key="GridCell.Tab.2.right" timestamp="1623861961562">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1623609083435" />
-    <state width="1877" height="348" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623595914688" />
+    <state width="1877" height="233" key="GridCell.Tab.2.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1623861961562" />
     <state x="490" y="175" key="Maven.ArtifactSearchDialog" timestamp="1622553990002">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
